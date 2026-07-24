@@ -955,7 +955,7 @@ export default function Home() {
                   <li>{t("q_effects")}</li>
                 </ul>
                 <a
-                  href="https://brewery.lumamc.net/en/guide/recipes/"
+                  href="https://breweryx.breweryteam.dev/docs/for-server-owners/config/recipes/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline"

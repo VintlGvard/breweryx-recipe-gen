@@ -137,7 +137,7 @@ No. Everything runs in your browser. Recipes are stored in your browser's localS
 <details>
 <summary><b>Which BreweryX versions are supported?</b></summary>
 
-The generator follows the current BreweryX recipe format described in the [official guide](https://brewery.lumamc.net/en/guide/recipes/). Generated configs use `&` color codes and single-quoted strings, as recommended.
+The generator follows the current BreweryX recipe format described in the [official guide](https://breweryx.breweryteam.dev/docs/for-server-owners/config/recipes/). Generated configs use `&` color codes and single-quoted strings, as recommended.
 </details>
 
 <details>
@@ -171,7 +171,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 ## 🙏 Acknowledgments
 
 - [BreweryX](https://github.com/BreweryTeam/BreweryX) — the plugin this tool is built for
-- [BreweryX Recipe Guide](https://brewery.lumamc.net/en/guide/recipes/) — official recipe documentation
+- [BreweryX Recipe Guide](https://breweryx.breweryteam.dev/docs/for-server-owners/config/recipes/) — official recipe documentation
 
 ---
 
