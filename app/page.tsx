@@ -9,6 +9,9 @@ import {
   ITEMS,
   COLORS,
   WOOD_TYPES,
+  generateYaml,
+  formFromYaml,
+  ValidationError,
   type RecipeForm,
 } from "@/lib/recipes";
 import { COLOR_MAP, TRANSLATIONS, type Lang } from "@/lib/i18n";
@@ -204,26 +207,17 @@ export default function Home() {
   const generate = useCallback(async (recipes: RecipeForm[]) => {
     setStatus("generating");
     try {
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recipes }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setYamlText(data.yaml);
-        setWarnings(data.warnings ?? []);
-        setErrorField(null);
-        setErrorMsg("");
-        setStatus("ok");
-        return true;
-      }
-      setErrorField(data.field ?? null);
-      setErrorMsg(data.error ?? "");
+      const { yaml, warnings } = generateYaml(recipes);
+      setYamlText(yaml);
+      setWarnings(warnings);
+      setErrorField(null);
+      setErrorMsg("");
+      setStatus("ok");
+      return true;
+    } catch (e) {
+      setErrorField(e instanceof ValidationError ? e.field : null);
+      setErrorMsg(e instanceof Error ? e.message : String(e));
       setWarnings([]);
-      setStatus("error");
-      return false;
-    } catch {
       setStatus("error");
       return false;
     }
@@ -358,29 +352,11 @@ export default function Home() {
     showToast(t("copy_error"), "danger");
   }
 
-  async function downloadYaml(recipes: RecipeForm[], recipeId: string) {
+  function downloadYaml(recipes: RecipeForm[], recipeId: string) {
     setDownloadOpen(false);
     try {
-      const genRes = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ recipes }),
-      });
-      const gen = await genRes.json();
-      if (!gen.success) {
-        showToast(gen.error || t("download_error"), "danger");
-        return;
-      }
-      const res = await fetch("/api/download", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ yaml: gen.yaml, recipe_id: recipeId }),
-      });
-      if (!res.ok) {
-        showToast(t("download_error"), "danger");
-        return;
-      }
-      const blob = await res.blob();
+      const { yaml } = generateYaml(recipes);
+      const blob = new Blob([yaml], { type: "text/yaml;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -389,29 +365,19 @@ export default function Home() {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-    } catch {
-      showToast(t("download_error"), "danger");
+    } catch (e) {
+      showToast(e instanceof Error ? e.message : t("download_error"), "danger");
     }
   }
 
-  async function handleImport() {
+  function handleImport() {
     if (!importText.trim()) {
       showToast(t("import_prompt"), "warning");
       return;
     }
     setImportBusy(true);
     try {
-      const res = await fetch("/api/import", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ yaml: importText }),
-      });
-      const data = await res.json();
-      if (!data.success) {
-        showToast(`${t("import_error")}: ${data.error}`, "danger");
-        return;
-      }
-      const imported = { ...cloneForm(DEFAULT_FORM), ...data.form } as RecipeForm;
+      const imported = { ...cloneForm(DEFAULT_FORM), ...formFromYaml(importText) };
       setState((prev) => {
         if (!prev) return prev;
         return {
@@ -422,8 +388,11 @@ export default function Home() {
       setImportOpen(false);
       setImportText("");
       showToast(t("import_success"), "success");
-    } catch {
-      showToast(t("import_error"), "danger");
+    } catch (e) {
+      showToast(
+        `${t("import_error")}${e instanceof Error ? ": " + e.message : ""}`,
+        "danger"
+      );
     } finally {
       setImportBusy(false);
     }
