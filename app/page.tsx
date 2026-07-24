@@ -72,6 +72,15 @@ function nextRecipeId(existing: string[]): string {
   return `recipe_${n}`;
 }
 
+function setCookie(name: string, value: string) {
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; samesite=lax`;
+}
+
+function getCookie(name: string): string | null {
+  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -108,10 +117,10 @@ export default function Home() {
 
   useEffect(() => {
     const init = () => {
-      const savedLang = localStorage.getItem("brewery_lang");
+      const savedLang = getCookie("brewery_lang") ?? localStorage.getItem("brewery_lang");
       if (savedLang === "ru" || savedLang === "en") setLang(savedLang);
 
-      const savedTheme = localStorage.getItem("brewery_theme");
+      const savedTheme = getCookie("brewery_theme") ?? localStorage.getItem("brewery_theme");
       const initialTheme = savedTheme === "dark" ? "dark" : "light";
       setTheme(initialTheme);
       document.documentElement.setAttribute("data-theme", initialTheme);
@@ -166,11 +175,13 @@ export default function Home() {
 
   useEffect(() => {
     localStorage.setItem("brewery_lang", lang);
+    setCookie("brewery_lang", lang);
     document.documentElement.lang = lang;
   }, [lang]);
 
   useEffect(() => {
     localStorage.setItem("brewery_theme", theme);
+    setCookie("brewery_theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
