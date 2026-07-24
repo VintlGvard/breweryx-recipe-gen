@@ -79,12 +79,8 @@ export class ValidationError extends Error {
 const SQ_OPEN = "\u0001";
 const SQ_CLOSE = "\u0002";
 
-function fixColors(text: string): string {
-  return text.replace(/&/g, "\u00a7");
-}
-
 function quoted(text: string): string {
-  return SQ_OPEN + fixColors(text) + SQ_CLOSE;
+  return SQ_OPEN + text + SQ_CLOSE;
 }
 
 function linesOf(text: string): string[] {
