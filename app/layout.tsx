@@ -32,11 +32,13 @@ export const metadata: Metadata = {
   applicationName: "BreweryX Recipe Generator",
   generator: "Next.js",
   category: "tools",
+  verification: {
+    google: "YOUR_GOOGLE_SEARCH_CONSOLE_CODE",
+  },
   alternates: {
     canonical: "/",
     languages: {
-      ru: "/",
-      en: "/",
+      "x-default": "/",
     },
   },
   openGraph: {
@@ -114,7 +116,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body>
         <script
           type="application/ld+json"
