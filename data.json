@@ -7522,39 +7522,132 @@
     }
   ],
   "colors": {
-    "WHITE": {"ru": "Белый", "en": "White"},
-    "DARK_RED": {"ru": "Тёмно-красный", "en": "Dark Red"},
-    "RED": {"ru": "Красный", "en": "Red"},
-    "BRIGHT_RED": {"ru": "Ярко-красный", "en": "Bright Red"},
-    "ORANGE": {"ru": "Оранжевый", "en": "Orange"},
-    "YELLOW": {"ru": "Жёлтый", "en": "Yellow"},
-    "PINK": {"ru": "Розовый", "en": "Pink"},
-    "PURPLE": {"ru": "Фиолетовый", "en": "Purple"},
-    "BLUE": {"ru": "Синий", "en": "Blue"},
-    "CYAN": {"ru": "Бирюзовый", "en": "Cyan"},
-    "WATER": {"ru": "Водный", "en": "Water"},
-    "TEAL": {"ru": "Чирок", "en": "Teal"},
-    "OLIVE": {"ru": "Оливковый", "en": "Olive"},
-    "GREEN": {"ru": "Зелёный", "en": "Green"},
-    "LIME": {"ru": "Лаймовый", "en": "Lime"},
-    "BLACK": {"ru": "Чёрный", "en": "Black"},
-    "GREY": {"ru": "Серый", "en": "Grey"},
-    "BRIGHT_GREY": {"ru": "Светло-серый", "en": "Bright Grey"}
+    "WHITE": {
+      "ru": "Белый",
+      "en": "White"
+    },
+    "DARK_RED": {
+      "ru": "Тёмно-красный",
+      "en": "Dark Red"
+    },
+    "RED": {
+      "ru": "Красный",
+      "en": "Red"
+    },
+    "BRIGHT_RED": {
+      "ru": "Ярко-красный",
+      "en": "Bright Red"
+    },
+    "ORANGE": {
+      "ru": "Оранжевый",
+      "en": "Orange"
+    },
+    "YELLOW": {
+      "ru": "Жёлтый",
+      "en": "Yellow"
+    },
+    "PINK": {
+      "ru": "Розовый",
+      "en": "Pink"
+    },
+    "PURPLE": {
+      "ru": "Фиолетовый",
+      "en": "Purple"
+    },
+    "BLUE": {
+      "ru": "Синий",
+      "en": "Blue"
+    },
+    "CYAN": {
+      "ru": "Бирюзовый",
+      "en": "Cyan"
+    },
+    "WATER": {
+      "ru": "Водный",
+      "en": "Water"
+    },
+    "TEAL": {
+      "ru": "Чирок",
+      "en": "Teal"
+    },
+    "OLIVE": {
+      "ru": "Оливковый",
+      "en": "Olive"
+    },
+    "GREEN": {
+      "ru": "Зелёный",
+      "en": "Green"
+    },
+    "LIME": {
+      "ru": "Лаймовый",
+      "en": "Lime"
+    },
+    "BLACK": {
+      "ru": "Чёрный",
+      "en": "Black"
+    },
+    "GREY": {
+      "ru": "Серый",
+      "en": "Grey"
+    },
+    "BRIGHT_GREY": {
+      "ru": "Светло-серый",
+      "en": "Bright Grey"
+    }
   },
   "wood_types": {
-    "0": {"ru": "Любая", "en": "Any"},
-    "1": {"ru": "Берёза", "en": "Birch"},
-    "2": {"ru": "Дуб", "en": "Oak"},
-    "3": {"ru": "Джунгли", "en": "Jungle"},
-    "4": {"ru": "Ель", "en": "Spruce"},
-    "5": {"ru": "Акация", "en": "Acacia"},
-    "6": {"ru": "Тёмный дуб", "en": "Dark Oak"},
-    "7": {"ru": "Багровый гриб", "en": "Crimson Fungus"},
-    "8": {"ru": "Искажённый гриб", "en": "Warped Fungus"},
-    "9": {"ru": "Мангровое дерево", "en": "Mangrove"},
-    "10": {"ru": "Вишня", "en": "Cherry"},
-    "11": {"ru": "Бамбук", "en": "Bamboo"},
-    "12": {"ru": "Резная медь", "en": "Chiseled Copper"}
+    "0": {
+      "ru": "Любая",
+      "en": "Any"
+    },
+    "1": {
+      "ru": "Берёза",
+      "en": "Birch"
+    },
+    "2": {
+      "ru": "Дуб",
+      "en": "Oak"
+    },
+    "3": {
+      "ru": "Джунгли",
+      "en": "Jungle"
+    },
+    "4": {
+      "ru": "Ель",
+      "en": "Spruce"
+    },
+    "5": {
+      "ru": "Акация",
+      "en": "Acacia"
+    },
+    "6": {
+      "ru": "Тёмный дуб",
+      "en": "Dark Oak"
+    },
+    "7": {
+      "ru": "Багровый гриб",
+      "en": "Crimson Fungus"
+    },
+    "8": {
+      "ru": "Искажённый гриб",
+      "en": "Warped Fungus"
+    },
+    "9": {
+      "ru": "Мангровое дерево",
+      "en": "Mangrove"
+    },
+    "10": {
+      "ru": "Вишня",
+      "en": "Cherry"
+    },
+    "11": {
+      "ru": "Бамбук",
+      "en": "Bamboo"
+    },
+    "12": {
+      "ru": "Резная медь",
+      "en": "Chiseled Copper"
+    }
   },
   "effects": [
     {
@@ -7751,128 +7844,6 @@
       "name": "INFESTED",
       "displayName": "Infested",
       "name_ru": "Заражённый"
-    }
-  ],
-  "examples": [
-    {
-      "displayName": "Golden Beer",
-      "displayName_ru": "Золотое пиво",
-      "recipe_id": "golden_beer",
-      "name": "&6Golden Beer",
-      "lore": "A refreshing golden beverage\nPerfect for any occasion",
-      "ingredients": "WHEAT/6\nWATER_BUCKET/1",
-      "effects": "",
-      "cookingtime": 5,
-      "distillruns": 0,
-      "distilltime": "",
-      "wood": 0,
-      "age": 0,
-      "color": "YELLOW",
-      "difficulty": 3,
-      "alcohol": 5,
-      "glint": "false",
-      "custommodeldata": "",
-      "drinktitle": "",
-      "drinksubtitle": "",
-      "drinkmessage": "",
-      "servercommands": "",
-      "playercommands": ""
-    },
-    {
-      "displayName": "Thunder Whiskey",
-      "displayName_ru": "Громовой виски",
-      "recipe_id": "thunder_whiskey",
-      "name": "&8Thunder Whiskey",
-      "lore": "Strong aged whiskey\nMade in oak barrels",
-      "ingredients": "WHEAT/10\nWATER_BUCKET/2\nSUGAR/4",
-      "effects": "SPEED/1/60\nCONFUSION/1/30",
-      "cookingtime": 10,
-      "distillruns": 2,
-      "distilltime": 120,
-      "wood": 2,
-      "age": 5,
-      "color": "ORANGE",
-      "difficulty": 7,
-      "alcohol": 30,
-      "glint": "false",
-      "custommodeldata": "",
-      "drinktitle": "",
-      "drinksubtitle": "",
-      "drinkmessage": "",
-      "servercommands": "",
-      "playercommands": ""
-    },
-    {
-      "displayName": "Health Potion",
-      "displayName_ru": "Зелье здоровья",
-      "recipe_id": "health_potion",
-      "name": "&cHealth Elixir",
-      "lore": "Restores health\nTastes like sweet berries",
-      "ingredients": "SWEET_BERRIES/8\nWATER_BUCKET/1\nGOLDEN_APPLE/1",
-      "effects": "INSTANT_HEALTH/1/1\nREGENERATION/1/10",
-      "cookingtime": 3,
-      "distillruns": 0,
-      "distilltime": "",
-      "wood": 0,
-      "age": 0,
-      "color": "RED",
-      "difficulty": 4,
-      "alcohol": 0,
-      "glint": "true",
-      "custommodeldata": "",
-      "drinktitle": "",
-      "drinksubtitle": "",
-      "drinkmessage": "",
-      "servercommands": "",
-      "playercommands": ""
-    },
-    {
-      "displayName": "Hot Chocolate",
-      "displayName_ru": "Горячий шоколад",
-      "recipe_id": "hot_chocolate",
-      "name": "&6Hot Chocolate",
-      "lore": "Warm and cozy\nPerfect for cold days",
-      "ingredients": "MILK_BUCKET/1\nSUGAR/3\nCOCOA_BEANS/2",
-      "effects": "ABSORPTION/1/30",
-      "cookingtime": 2,
-      "distillruns": 0,
-      "distilltime": "",
-      "wood": 0,
-      "age": 0,
-      "color": "ORANGE",
-      "difficulty": 2,
-      "alcohol": 0,
-      "glint": "false",
-      "custommodeldata": "",
-      "drinktitle": "",
-      "drinksubtitle": "",
-      "drinkmessage": "",
-      "servercommands": "",
-      "playercommands": ""
-    },
-    {
-      "displayName": "Fire Mead",
-      "displayName_ru": "Огненная медовуха",
-      "recipe_id": "fire_mead",
-      "name": "&4Fire Mead",
-      "lore": "A burning honey mead\nNot for the faint of heart",
-      "ingredients": "HONEY_BOTTLE/4\nWATER_BUCKET/1\nBLAZE_POWDER/2",
-      "effects": "FIRE_RESISTANCE/1/60\nSTRENGTH/1/30",
-      "cookingtime": 8,
-      "distillruns": 1,
-      "distilltime": 60,
-      "wood": 1,
-      "age": 3,
-      "color": "RED",
-      "difficulty": 5,
-      "alcohol": 15,
-      "glint": "false",
-      "custommodeldata": "",
-      "drinktitle": "",
-      "drinksubtitle": "",
-      "drinkmessage": "",
-      "servercommands": "",
-      "playercommands": ""
     }
   ]
 }

@@ -6,10 +6,10 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "BreweryX Gen",
     description:
       "Онлайн-генератор YAML-рецептов для плагина BreweryX (Minecraft).",
-    start_url: "/",
+    start_url: "/ru",
     display: "standalone",
-    background_color: "#f5f2ec",
-    theme_color: "#f5f2ec",
+    background_color: "#f2f1ed",
+    theme_color: "#f2f1ed",
     lang: "ru",
     categories: ["utilities", "productivity"],
     icons: [

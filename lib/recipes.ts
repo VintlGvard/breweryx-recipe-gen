@@ -1,5 +1,6 @@
 import yaml from "js-yaml";
 import data from "../data.json";
+import recipesData from "../recipes.json";
 
 export interface LangLabel {
   ru: string;
@@ -39,7 +40,12 @@ export const ITEMS = data.items as ItemEntry[];
 export const COLORS = data.colors as Record<string, LangLabel>;
 export const WOOD_TYPES = data.wood_types as Record<string, LangLabel>;
 export const EFFECTS = data.effects as ItemEntry[];
-export const EXAMPLES = (data.examples ?? []) as Array<Record<string, unknown>>;
+export const ALL_RECIPES = recipesData as Array<Record<string, unknown>>;
+
+export function getRandomRecipes(count: number): Array<Record<string, unknown>> {
+  const shuffled = [...ALL_RECIPES].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
 
 const KNOWN_ITEMS = new Set(ITEMS.map((item) => item.name));
 const RECIPE_ID_RE = /^[a-zA-Z0-9_]+$/;
@@ -66,6 +72,26 @@ export const DEFAULT_FORM: RecipeForm = {
   servercommands: "",
   playercommands: "",
 };
+
+export function cloneForm(form: RecipeForm): RecipeForm {
+  return { ...form };
+}
+
+export function formFromRecord(rec: Record<string, unknown>): RecipeForm {
+  const form = { ...DEFAULT_FORM };
+  for (const key of Object.keys(DEFAULT_FORM) as (keyof RecipeForm)[]) {
+    if (rec[key] != null) {
+      (form as unknown as Record<string, unknown>)[key] = rec[key];
+    }
+  }
+  return form;
+}
+
+export function getDisplayName(rec: Record<string, unknown>, lang: string, fallback?: string): string {
+  return String(
+    (lang === "ru" ? rec.displayName_ru : rec.displayName) ?? rec.displayName ?? fallback ?? rec.recipe_id
+  );
+}
 
 export class ValidationError extends Error {
   field: string | null;
