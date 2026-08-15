@@ -26,6 +26,7 @@ const listeners = new Set<() => void>();
 function setTheme(next: Theme) {
   theme = next;
   document.documentElement.dataset.theme = next;
+  document.documentElement.lang = document.documentElement.lang || "ru";
   listeners.forEach((fn) => fn());
 }
 

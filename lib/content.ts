@@ -39,7 +39,6 @@ export interface GuideContent {
 export interface RecipePageContent {
   meta: SeoMeta;
   intro: string[];
-  paramsTable: { label: string; value: string }[];
   installSteps: string[];
 }
 
@@ -709,328 +708,248 @@ export const GUIDE: Record<Locale, GuideContent> = {
 
 export const RECIPES_CONTENT: Record<Locale, Record<string, RecipePageContent>> = {
   ru: {
-    golden_beer: {
+    honey_ale: {
       meta: {
-        title: "Рецепт Золотого Пива для BreweryX — YAML-конфиг",
-        description: "Готовый YAML-рецепт золотого пива для плагина BreweryX в Minecraft: пшеница, вода, 5 минут варки, сложность 3, 5% алкоголя.",
+        title: "Рецепт Медового Золотого Эля для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт медового эля для плагина BreweryX в Minecraft: пшеница, мёд, вода, 6 минут варки, сложность 3, 8% алкоголя.",
         keywords: [
-          "золотое пиво breweryx",
-          "рецепт пива minecraft",
-          "breweryx пиво yaml",
-          "golden beer recipe",
+          "медовый эль breweryx",
+          "рецепт эля minecraft",
+          "breweryx эль yaml",
+          "honey ale recipe",
           "minecraft brewery beer",
           "breweryx beer config"
         ],
       },
       intro: [
-        "Золотое пиво — это базовый рецепт для BreweryX, идеально подходящий для начинающих. Простой состав из пшеницы и воды, минимальное время варки и низкая сложность делают его отличным стартом для изучения плагина.",
-        "Напиток имеет золотисто-жёлтый цвет, освежающий вкус и лёгкий алкогольный эффект. Идеально подходит как стартовый напиток для игроков на вашем сервере."
-      ],
-      paramsTable: [
-        { label: "Ингредиенты", value: "WHEAT/6, WATER_BUCKET/1" },
-        { label: "Время варки", value: "5 минут" },
-        { label: "Сложность", value: "3" },
-        { label: "Алкоголь", value: "5%" },
-        { label: "Цвет", value: "YELLOW" },
-        { label: "ID рецепта", value: "golden_beer" },
+        "Медовый золотой эль — это базовый рецепт для BreweryX, идеально подходящий для начинающих. Простой состав из пшеницы, мёда и воды, короткое время варки и низкая сложность делают его отличным стартом для изучения плагина.",
+        "Напиток имеет золотисто-жёлтый цвет, сладковатый вкус и лёгкий алкогольный эффект. Идеально подходит как стартовый напиток для игроков на вашем сервере."
       ],
       installSteps: [
-        "Скопируйте YAML-код рецепта из генератора или скачайте файл.",
+        "Скопируйте YAML-код медового эля из генератора или скачайте файл.",
         "Откройте файл plugins/BreweryX/recipes.yml на вашем сервере.",
         "Вставьте рецепт в конец файла (или создайте новый файл, если его нет).",
-        "Перезагрузите сервер командой /reload или перезапустите его — золотое пиво готово!"
+        "Перезагрузите сервер командой /reload или перезапустите его — медовый эль готов!"
       ],
     },
-    thunder_whiskey: {
+    dragon_whiskey: {
       meta: {
-        title: "Рецепт Громового Виски для BreweryX — YAML-конфиг",
-        description: "Готовый YAML-рецепт громового виски для BreweryX в Minecraft: пшеница, вода, сахар, дистилляция, выдержка в еловой бочке, 30% алкоголя.",
+        title: "Рецепт Пламенного Виски для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт пламенного виски для плагина BreweryX в Minecraft: пшеница, огненный порошок, сахар, тройная дистилляция, выдержка в бочке из тёмного дуба, 45% алкоголя.",
         keywords: [
-          "громовое виски breweryx",
+          "пламенное виски breweryx",
           "рецепт виски minecraft",
           "breweryx виски yaml",
-          "thunder whiskey recipe",
+          "dragon whiskey recipe",
           "minecraft whiskey plugin",
           "breweryx whiskey config"
         ],
       },
       intro: [
-        "Громовое виски — это крепкий напиток для BreweryX с двойной дистилляцией и выдержкой в дубовой бочке. Насыщенный вкус, тёмно-оранжевый цвет и сильный алкогольный эффект делают его одним из самых популярных рецептов.",
-        "Рецепт использует три ингредиента: пшеницу, воду и сахар. После варки напиток проходит две перегонки и пять дней выдержки, что придаёт ему глубокий, выдержанный характер."
-      ],
-      paramsTable: [
-        { label: "Ингредиенты", value: "WHEAT/10, WATER_BUCKET/2, SUGAR/4" },
-        { label: "Время варки", value: "10 минут" },
-        { label: "Дистилляция", value: "2 перегонки, 120 сек каждая" },
-        { label: "Бочка", value: "Дубовая (2), 5 дней выдержки" },
-        { label: "Алкоголь", value: "30%" },
-        { label: "Цвет", value: "ORANGE" },
+        "Пламенное виски — это крепчайший напиток для BreweryX с тройной дистилляцией и выдержкой в бочке из тёмного дуба. Насыщенный вкус, ярко-красный цвет и эффект огнестойкости делают его одним из самых впечатляющих рецептов.",
+        "Рецепт использует четыре ингредиента: пшеницу, огненный порошок, сахар и воду. После варки напиток проходит три перегонки и семь дней выдержки — наградой за терпение становятся 45% алкоголя."
       ],
       installSteps: [
-        "Скопируйте YAML-код громового виски из генератора или скачайте файл.",
-        "Откройте файл plugins/BreweryX/recipes.yml на вашем сервере.",
+        "Скопируйте YAML-код пламенного виски из генератора или скачайте файл.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
         "Вставьте рецепт в конец файла.",
-        "Перезагрузите сервер — громовое виски готово к дистилляции!"
+        "Перезагрузите сервер — пламенное виски готово к дистилляции!"
       ],
     },
-    health_potion: {
+    enchanted_elixir: {
       meta: {
-        title: "Рецепт Зелья Здоровья для BreweryX — YAML-конфиг",
-        description: "Готовый YAML-рецепт зелья здоровья для BreweryX в Minecraft: адский нарост, вода, зелье регенерации, нет алкоголя.",
+        title: "Рецепт Зачарованного Эликсира для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт зачарованного эликсира для BreweryX в Minecraft: сахар, редстоун, светокаменная пыль, адский нарост, эффекты свечения и удачи, без алкоголя.",
         keywords: [
-          "зелье здоровья breweryx",
-          "рецепт зелья minecraft",
-          "breweryx зелье yaml",
-          "health potion recipe",
+          "зачарованный эликсир breweryx",
+          "рецепт эликсира minecraft",
+          "breweryx эликсир yaml",
+          "enchanted elixir recipe",
           "minecraft brewery potion",
-          "breweryx health config"
+          "breweryx elixir config"
         ],
       },
       intro: [
-        "Зелье здоровья — это нелекарственный напиток для BreweryX, который восстанавливает здоровье игрока при употреблении. Использует эффект регенерации и не содержит алкоголя.",
-        "Идеально подходит как альтернатива стандартным зельям Minecraft с кастомным внешним видом и описанием. Красный цвет и магическое свечение делают его узнаваемым в инвентаре."
-      ],
-      paramsTable: [
-        { label: "Ингредиенты", value: "NETHER_WART/1, WATER_BUCKET/1" },
-        { label: "Время варки", value: "3 минуты" },
-        { label: "Сложность", value: "2" },
-        { label: "Алкоголь", value: "0%" },
-        { label: "Цвет", value: "RED" },
-        { label: "Эффекты", value: "REGENERATION/2/30" },
+        "Зачарованный эликсир — это магический безалкогольный напиток для BreweryX, который дарит игроку свечение и удачу. Варится из сахара, редстоуна, светокаменной пыли и адского нароста.",
+        "Зелёный цвет и светящееся описание делают его узнаваемым в инвентаре. Отличная альтернатива стандартным зельям Minecraft с полностью настраиваемым внешним видом."
       ],
       installSteps: [
-        "Скопируйте YAML-код зелья здоровья из генератора.",
+        "Скопируйте YAML-код зачарованного эликсира из генератора.",
         "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
         "Вставьте рецепт в конец файла.",
-        "Перезагрузите сервер — зелье здоровья появится у игроков!"
+        "Перезагрузите сервер — эликсир появится у игроков!"
       ],
     },
-    hot_chocolate: {
+    moonlight_milk: {
       meta: {
-        title: "Рецепт Горячего Шоколада для BreweryX — YAML-конфиг",
-        description: "Готовый YAML-рецепт горячего шоколада для BreweryX в Minecraft: какао-бобы, молоко, сахар, без алкоголя, согревающий эффект.",
+        title: "Рецепт Лунного Молока для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт лунного молока для BreweryX в Minecraft: молоко, сахар, мёд, без алкоголя, эффект ночного зрения.",
         keywords: [
-          "горячий шоколад breweryx",
-          "рецепт шоколада minecraft",
-          "breweryx шоколад yaml",
-          "hot chocolate recipe",
-          "minecraft brewery chocolate",
-          "breweryx hot chocolate config"
+          "лунное молоко breweryx",
+          "рецепт молока minecraft",
+          "breweryx молоко yaml",
+          "moonlit milk recipe",
+          "minecraft brewery milk",
+          "breweryx milk config"
         ],
       },
       intro: [
-        "Горячий шоколад — это нелекарственный напиток для BreweryX, согревающий игроков и восстанавливающий сытость. Использует какао-бобы, молоко и сахар.",
-        "Тёмно-коричневый цвет, описание с ароматом шоколада и отсутствие алкоголя делают его отличным выбором для серверов с молодой аудиторией или как альтернатива alcoholic напиткам."
-      ],
-      paramsTable: [
-        { label: "Ингредиенты", value: "COCOA_BEANS/3, MILK_BUCKET/1, SUGAR/2" },
-        { label: "Время варки", value: "4 минуты" },
-        { label: "Сложность", value: "1" },
-        { label: "Алкоголь", value: "0%" },
-        { label: "Цвет", value: "DARK_RED" },
-        { label: "Эффекты", value: "SATURATION/1/10" },
+        "Лунное молоко — это нежный безалкогольный напиток для BreweryX, который дарит игроку ночное зрение. Варится всего из трёх ингредиентов: молока, сахара и мёда.",
+        "Белоснежный цвет, мягкое описание и отсутствие алкоголя делают его отличным выбором для серверов с молодой аудиторией или как альтернатива алкогольным напиткам."
       ],
       installSteps: [
-        "Скопируйте YAML-код горячего шоколада из генератора.",
+        "Скопируйте YAML-код лунного молока из генератора.",
         "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
         "Вставьте рецепт в конец файла.",
-        "Перезагрузите сервер — горячий шоколад готов!"
+        "Перезагрузите сервер — лунное молоко готово!"
       ],
     },
-    fire_mead: {
+    mystic_mead: {
       meta: {
-        title: "Рецепт Огненной Медовухи для BreweryX — YAML-конфиг",
-        description: "Готовый YAML-рецепт огненной медовухи для BreweryX в Minecraft: мёд, вода, адский нарост, дистилляция, 15% алкоголя.",
+        title: "Рецепт Таинственной Медовухи для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт таинственной медовухи для BreweryX в Minecraft: мёд, сахар, редстоун, дистилляция, выдержка, эффекты регенерации и поглощения, 15% алкоголя.",
         keywords: [
-          "огненная медовуха breweryx",
+          "таинственная медовуха breweryx",
           "рецепт медовухи minecraft",
           "breweryx медовуха yaml",
-          "fire mead recipe",
+          "arcane mead recipe",
           "minecraft brewery mead",
-          "breweryx fire mead config"
+          "breweryx mead config"
         ],
       },
       intro: [
-        "Огненная медовуха — это крепкий мёд для BreweryX с одной перегонкой и добавлением адского нароста. Огненно-оранжевый цвет и согревающий эффект делают её идеальным напитком для зимних приключений.",
-        "Медовуха варится из мёда и воды, после чего проходит перегонку для повышения крепости. Добавление незабудки придаёт острый привкус и эффект регенерации."
-      ],
-      paramsTable: [
-        { label: "Ингредиенты", value: "HONEY_BOTTLE/4, WATER_BUCKET/2, NETHER_WART/1" },
-        { label: "Время варки", value: "8 минут" },
-        { label: "Дистилляция", value: "1 перегонка, 90 сек" },
-        { label: "Алкоголь", value: "15%" },
-        { label: "Цвет", value: "ORANGE" },
-        { label: "Эффекты", value: "FIRE_RESISTANCE/1/60" },
+        "Таинственная медовуха — это зачарованный мёд для BreweryX с одной перегонкой и долгой выдержкой. Фиолетовый цвет и эффекты регенерации с поглощением урона делают её ценным напитком для приключений.",
+        "Медовуха варится из мёда, сахара и редстоуна, после чего проходит перегонку и десять дней выдержки. Светящееся изнутри вино — награда за терпение."
       ],
       installSteps: [
-        "Скопируйте YAML-код огненной медовухи из генератора.",
+        "Скопируйте YAML-код таинственной медовухи из генератора.",
         "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
         "Вставьте рецепт в конец файла.",
-        "Перезагрузите сервер — огненная медовуха готова!"
+        "Перезагрузите сервер — таинственная медовуха готова!"
       ],
     },
   },
   en: {
-    golden_beer: {
+    honey_ale: {
       meta: {
-        title: "Golden Beer Recipe for BreweryX — YAML Config",
-        description: "Ready YAML recipe for golden beer for the BreweryX Minecraft plugin: wheat, water, 5 minutes cooking time, difficulty 3, 5% alcohol.",
+        title: "Honey Gold Ale Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for honey gold ale for the BreweryX Minecraft plugin: wheat, honey, water, 6 minutes cooking time, difficulty 3, 8% alcohol.",
         keywords: [
-          "golden beer breweryx",
-          "beer recipe minecraft",
-          "breweryx beer yaml",
+          "honey ale breweryx",
+          "ale recipe minecraft",
+          "breweryx ale yaml",
           "minecraft brewery beer",
           "breweryx beer config",
           "simple beer recipe"
         ],
       },
       intro: [
-        "Golden beer is a beginner-friendly recipe for BreweryX. A simple composition of wheat and water, minimal cooking time and low difficulty make it an excellent starting point for learning the plugin.",
-        "The drink has a golden-yellow color, a refreshing taste, and a mild alcohol effect. Perfect as a starter drink for players on your server."
-      ],
-      paramsTable: [
-        { label: "Ingredients", value: "WHEAT/6, WATER_BUCKET/1" },
-        { label: "Cooking time", value: "5 minutes" },
-        { label: "Difficulty", value: "3" },
-        { label: "Alcohol", value: "5%" },
-        { label: "Color", value: "YELLOW" },
-        { label: "Recipe ID", value: "golden_beer" },
+        "Honey gold ale is a beginner-friendly recipe for BreweryX. A simple composition of wheat, honey, and water, a short cooking time and low difficulty make it an excellent starting point for learning the plugin.",
+        "The drink has a golden-yellow color, a sweet taste, and a mild alcohol effect. Perfect as a starter drink for players on your server."
       ],
       installSteps: [
         "Copy the YAML recipe code from the generator or download the file.",
         "Open the plugins/BreweryX/recipes.yml file on your server.",
         "Paste the recipe at the end of the file (or create a new file if none exists).",
-        "Reload the server with /reload or restart it — your golden beer is ready!"
+        "Reload the server with /reload or restart it — your honey ale is ready!"
       ],
     },
-    thunder_whiskey: {
+    dragon_whiskey: {
       meta: {
-        title: "Thunder Whiskey Recipe for BreweryX — YAML Config",
-        description: "Ready YAML recipe for thunder whiskey for BreweryX in Minecraft: wheat, water, sugar, distillation, spruce barrel aging, 30% alcohol.",
+        title: "Inferno Whiskey Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for inferno whiskey for BreweryX in Minecraft: wheat, blaze powder, sugar, triple distillation, dark oak barrel aging, 45% alcohol.",
         keywords: [
-          "thunder whiskey breweryx",
+          "inferno whiskey breweryx",
           "whiskey recipe minecraft",
           "breweryx whiskey yaml",
+          "dragon whiskey recipe",
           "minecraft whiskey plugin",
           "breweryx whiskey config",
           "distilled whiskey recipe"
         ],
       },
       intro: [
-        "Thunder whiskey is a strong spirit for BreweryX with double distillation and oak barrel aging. Rich flavor, dark-orange color and a strong alcohol effect make it one of the most popular recipes.",
-        "The recipe uses three ingredients: wheat, water, and sugar. After brewing, the drink undergoes two distillation runs and five days of aging, giving it a deep, mature character."
-      ],
-      paramsTable: [
-        { label: "Ingredients", value: "WHEAT/10, WATER_BUCKET/2, SUGAR/4" },
-        { label: "Cooking time", value: "10 minutes" },
-        { label: "Distillation", value: "2 runs, 120 sec each" },
-        { label: "Barrel", value: "Oak (2), 5 days aging" },
-        { label: "Alcohol", value: "30%" },
-        { label: "Color", value: "ORANGE" },
+        "Inferno whiskey is an extremely strong spirit for BreweryX with triple distillation and dark oak barrel aging. Rich flavor, bright-red color and a fire resistance effect make it one of the most impressive recipes.",
+        "The recipe uses four ingredients: wheat, blaze powder, sugar, and water. After brewing, the drink undergoes three distillation runs and seven days of aging — rewarding you with 45% alcohol."
       ],
       installSteps: [
-        "Copy the YAML code for thunder whiskey from the generator or download the file.",
+        "Copy the YAML code for inferno whiskey from the generator or download the file.",
         "Open the plugins/BreweryX/recipes.yml file on your server.",
         "Paste the recipe at the end of the file.",
-        "Reload the server — thunder whiskey is ready for distillation!"
+        "Reload the server — inferno whiskey is ready for distillation!"
       ],
     },
-    health_potion: {
+    enchanted_elixir: {
       meta: {
-        title: "Health Potion Recipe for BreweryX — YAML Config",
-        description: "Ready YAML recipe for a health potion for BreweryX in Minecraft: nether wart, water, regeneration effect, no alcohol.",
+        title: "Enchanted Elixir Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for an enchanted elixir for BreweryX in Minecraft: sugar, redstone, glowstone dust, nether wart, glowing and luck effects, no alcohol.",
         keywords: [
-          "health potion breweryx",
-          "potion recipe minecraft",
-          "breweryx potion yaml",
+          "enchanted elixir breweryx",
+          "elixir recipe minecraft",
+          "breweryx elixir yaml",
           "minecraft brewery potion",
-          "breweryx health config",
-          "regeneration potion recipe"
+          "breweryx elixir config",
+          "luck potion recipe"
         ],
       },
       intro: [
-        "The health potion is a non-alcoholic drink for BreweryX that restores player health on consumption. It uses the regeneration effect and contains no alcohol.",
-        "It serves as an alternative to standard Minecraft potions with a custom appearance and description. The red color and magical glow make it recognizable in the inventory."
-      ],
-      paramsTable: [
-        { label: "Ingredients", value: "NETHER_WART/1, WATER_BUCKET/1" },
-        { label: "Cooking time", value: "3 minutes" },
-        { label: "Difficulty", value: "2" },
-        { label: "Alcohol", value: "0%" },
-        { label: "Color", value: "RED" },
-        { label: "Effects", value: "REGENERATION/2/30" },
+        "The enchanted elixir is a magical non-alcoholic drink for BreweryX that grants the player glowing and luck effects. It is brewed from sugar, redstone, glowstone dust, and nether wart.",
+        "The green color and glowing description make it recognizable in the inventory. An excellent alternative to standard Minecraft potions with a fully customizable look."
       ],
       installSteps: [
-        "Copy the YAML code for the health potion from the generator.",
+        "Copy the YAML code for the enchanted elixir from the generator.",
         "Open the plugins/BreweryX/recipes.yml file on your server.",
         "Paste the recipe at the end of the file.",
-        "Reload the server — the health potion will appear for players!"
+        "Reload the server — the elixir will appear for players!"
       ],
     },
-    hot_chocolate: {
+    moonlight_milk: {
       meta: {
-        title: "Hot Chocolate Recipe for BreweryX — YAML Config",
-        description: "Ready YAML recipe for hot chocolate for BreweryX in Minecraft: cocoa beans, milk, sugar, no alcohol, warming effect.",
+        title: "Moonlit Milk Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for moonlit milk for BreweryX in Minecraft: milk, sugar, honey, no alcohol, night vision effect.",
         keywords: [
-          "hot chocolate breweryx",
-          "chocolate recipe minecraft",
-          "breweryx chocolate yaml",
-          "minecraft brewery chocolate",
-          "breweryx hot chocolate config",
+          "moonlit milk breweryx",
+          "milk recipe minecraft",
+          "breweryx milk yaml",
+          "minecraft brewery milk",
+          "breweryx milk config",
           "non-alcoholic drink recipe"
         ],
       },
       intro: [
-        "Hot chocolate is a non-alcoholic drink for BreweryX that warms players and restores saturation. It uses cocoa beans, milk, and sugar.",
-        "The dark-brown color, chocolate-flavored description, and absence of alcohol make it an excellent choice for servers with a younger audience or as an alternative to alcoholic drinks."
-      ],
-      paramsTable: [
-        { label: "Ingredients", value: "COCOA_BEANS/3, MILK_BUCKET/1, SUGAR/2" },
-        { label: "Cooking time", value: "4 minutes" },
-        { label: "Difficulty", value: "1" },
-        { label: "Alcohol", value: "0%" },
-        { label: "Color", value: "DARK_RED" },
-        { label: "Effects", value: "SATURATION/1/10" },
+        "Moonlit milk is a gentle non-alcoholic drink for BreweryX that grants the player night vision. It is brewed from just three ingredients: milk, sugar, and honey.",
+        "The snow-white color, soothing description, and absence of alcohol make it an excellent choice for servers with a younger audience or as an alternative to alcoholic drinks."
       ],
       installSteps: [
-        "Copy the YAML code for hot chocolate from the generator.",
+        "Copy the YAML code for moonlit milk from the generator.",
         "Open the plugins/BreweryX/recipes.yml file on your server.",
         "Paste the recipe at the end of the file.",
-        "Reload the server — hot chocolate is ready!"
+        "Reload the server — moonlit milk is ready!"
       ],
     },
-    fire_mead: {
+    mystic_mead: {
       meta: {
-        title: "Fire Mead Recipe for BreweryX — YAML Config",
-        description: "Ready YAML recipe for fire mead for BreweryX in Minecraft: honey, water, nether wart, distillation, 15% alcohol.",
+        title: "Arcane Mead Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for arcane mead for BreweryX in Minecraft: honey, sugar, redstone, distillation, barrel aging, regeneration and absorption effects, 15% alcohol.",
         keywords: [
-          "fire mead breweryx",
+          "arcane mead breweryx",
           "mead recipe minecraft",
           "breweryx mead yaml",
           "minecraft brewery mead",
-          "breweryx fire mead config",
+          "breweryx mead config",
           "honey mead recipe"
         ],
       },
       intro: [
-        "Fire mead is a strong honey drink for BreweryX with one distillation run and nether wart. The fiery-orange color and warming effect make it perfect for winter adventures.",
-        "Mead is brewed from honey and water, then distilled to increase strength. Adding nether wart gives it a spicy kick and a regeneration effect."
-      ],
-      paramsTable: [
-        { label: "Ingredients", value: "HONEY_BOTTLE/4, WATER_BUCKET/2, NETHER_WART/1" },
-        { label: "Cooking time", value: "8 minutes" },
-        { label: "Distillation", value: "1 run, 90 sec" },
-        { label: "Alcohol", value: "15%" },
-        { label: "Color", value: "ORANGE" },
-        { label: "Effects", value: "FIRE_RESISTANCE/1/60" },
+        "Arcane mead is an enchanted honey drink for BreweryX with one distillation run and long barrel aging. The purple color and regeneration plus absorption effects make it a valuable adventure drink.",
+        "The mead is brewed from honey, sugar, and redstone, then distilled and aged for ten days. Wine that glows with inner light is the reward for your patience."
       ],
       installSteps: [
-        "Copy the YAML code for fire mead from the generator.",
+        "Copy the YAML code for arcane mead from the generator.",
         "Open the plugins/BreweryX/recipes.yml file on your server.",
         "Paste the recipe at the end of the file.",
-        "Reload the server — fire mead is ready!"
+        "Reload the server — arcane mead is ready!"
       ],
     },
   },
 };
-

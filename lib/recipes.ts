@@ -169,6 +169,9 @@ function validateForm(form: RecipeForm): void {
   if (!form.name) {
     throw new ValidationError("Название рецепта не может быть пустым.", "name");
   }
+  if (!linesOf(String(form.ingredients ?? "")).length) {
+    throw new ValidationError("Добавьте хотя бы один ингредиент (МАТЕРИАЛ/КОЛИЧЕСТВО).", "ingredients");
+  }
   if (form.cookingtime === "" || form.cookingtime == null) {
     throw new ValidationError("Время варки не может быть пустым.", "cookingtime");
   }
@@ -271,7 +274,7 @@ export function generateYaml(forms: RecipeForm[]): {
   };
 }
 
-export function formFromYaml(yamlText: string): RecipeForm {
+export function formsFromYaml(yamlText: string): RecipeForm[] {
   const parsed = yaml.load(yamlText);
   if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
     throw new ValidationError("YAML должен быть словарём (объектом)");
@@ -280,12 +283,15 @@ export function formFromYaml(yamlText: string): RecipeForm {
   const entries = Object.entries(parsed as Record<string, unknown>);
   if (!entries.length) throw new ValidationError("YAML пуст");
 
-  const [recipeId, raw] = entries[0];
-  if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
-    throw new ValidationError(`Рецепт "${recipeId}" должен быть объектом`);
-  }
-  const d = raw as Record<string, unknown>;
+  return entries.map(([recipeId, raw]) => {
+    if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+      throw new ValidationError(`Рецепт "${recipeId}" должен быть объектом`);
+    }
+    return formFromEntry(recipeId, raw as Record<string, unknown>);
+  });
+}
 
+function formFromEntry(recipeId: string, d: Record<string, unknown>): RecipeForm {
   const asText = (value: unknown): string =>
     value == null ? "" : String(value).replace(/\u00a7/g, "&");
 
@@ -314,4 +320,8 @@ export function formFromYaml(yamlText: string): RecipeForm {
     servercommands: asLines(d.servercommands),
     playercommands: asLines(d.playercommands),
   };
+}
+
+export function formFromYaml(yamlText: string): RecipeForm {
+  return formsFromYaml(yamlText)[0];
 }

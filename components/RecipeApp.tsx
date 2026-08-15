@@ -11,7 +11,7 @@ import {
   COLORS,
   WOOD_TYPES,
   generateYaml,
-  formFromYaml,
+  formsFromYaml,
   ValidationError,
   cloneForm,
   formFromRecord,
@@ -91,6 +91,8 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const restoredToastShown = useRef(false);
+  const stateRef = useRef<RecipesState | null>(null);
+  useEffect(() => { stateRef.current = state; }, [state]);
 
   const t = useCallback(
     (key: string) => TRANSLATIONS[lang][key] ?? key,
@@ -164,8 +166,26 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
   }, [lang, showToast]);
 
   useEffect(() => {
-    if (state) localStorage.setItem("brewery_recipes", JSON.stringify(state));
+    if (!state) return;
+    const id = setTimeout(() => {
+      try {
+        localStorage.setItem("brewery_recipes", JSON.stringify(state));
+      } catch {}
+    }, 400);
+    return () => clearTimeout(id);
   }, [state]);
+
+  useEffect(
+    () => () => {
+      const last = stateRef.current;
+      if (last) {
+        try {
+          localStorage.setItem("brewery_recipes", JSON.stringify(last));
+        } catch {}
+      }
+    },
+    []
+  );
 
   const form = state ? state.recipes[state.current] : null;
 
@@ -229,6 +249,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
+      if (importOpen) return;
       if (e.ctrlKey && e.key === "Enter") {
         e.preventDefault();
         handleGenerate();
@@ -236,7 +257,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [handleGenerate]);
+  }, [handleGenerate, importOpen]);
 
   function handleReset() {
     if (!state) return;
@@ -291,6 +312,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
       if (!prev) return prev;
       const oldId = prev.current;
       if (value === oldId) return prev;
+      if (value && value in prev.recipes) {
+        showToast(t("duplicate_recipe_id").replace("{id}", value), "warning");
+        return prev;
+      }
       const recipes: Record<string, RecipeForm> = {};
       for (const [id, f] of Object.entries(prev.recipes)) {
         if (id === oldId) {
@@ -356,13 +381,14 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
     }
     setImportBusy(true);
     try {
-      const imported = { ...cloneForm(DEFAULT_FORM), ...formFromYaml(importText) };
+      const imported = formsFromYaml(importText);
       setState((prev) => {
         if (!prev) return prev;
-        return {
-          recipes: { ...prev.recipes, [imported.recipe_id]: imported },
-          current: imported.recipe_id,
-        };
+        const recipes = { ...prev.recipes };
+        for (const form of imported) {
+          recipes[form.recipe_id] = { ...cloneForm(DEFAULT_FORM), ...form };
+        }
+        return { recipes, current: imported[0].recipe_id };
       });
       setImportOpen(false);
       setImportText("");
@@ -519,10 +545,11 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="label" title={t("recipe_id_tooltip")}>
+              <label className="label" htmlFor="f-recipe-id" title={t("recipe_id_tooltip")}>
                 {t("recipe_id")} <span className="req">*</span>
               </label>
               <input
+                id="f-recipe-id"
                 type="text"
                 className={"input" + (errorField === "recipe_id" ? " invalid" : "")}
                 placeholder={t("ph_recipe_id")}
@@ -532,10 +559,11 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               {errorField === "recipe_id" && <div className="field-error">{errorMsg}</div>}
             </div>
             <div>
-              <label className="label" title={t("name_tooltip")}>
+              <label className="label" htmlFor="f-name" title={t("name_tooltip")}>
                 {t("name")} <span className="req">*</span>
               </label>
               <input
+                id="f-name"
                 type="text"
                 className={"input" + (errorField === "name" ? " invalid" : "")}
                 value={form.name}
@@ -546,8 +574,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
           </div>
 
           <div className="mb-3">
-            <label className="label">{t("lore")}</label>
+            <label className="label" htmlFor="f-lore">{t("lore")}</label>
             <textarea
+              id="f-lore"
               className="textarea"
               rows={2}
               value={form.lore}
@@ -591,11 +620,12 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
           </div>
 
           <div className="mb-3">
-            <label className="label">
+            <label className="label" htmlFor="f-ingredients">
               {t("ingredients")} <span className="req">*</span>
             </label>
             <ChipInput
               data={ITEMS}
+              inputId="f-ingredients"
               lines={linesOf(String(form.ingredients ?? ""))}
               lang={lang}
               t={t}
@@ -620,10 +650,11 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
           <div className="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="label">
+              <label className="label" htmlFor="f-cookingtime">
                 {t("cookingtime")} <span className="req">*</span>
               </label>
               <input
+                id="f-cookingtime"
                 type="number"
                 className={"input" + (errorField === "cookingtime" ? " invalid" : "")}
                 min={1}
@@ -634,10 +665,11 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               {errorField === "cookingtime" && <div className="field-error">{errorMsg}</div>}
             </div>
             <div>
-              <label className="label">
+              <label className="label" htmlFor="f-difficulty">
                 {t("difficulty")} <span className="req">*</span>
               </label>
               <input
+                id="f-difficulty"
                 type="number"
                 className={"input" + (errorField === "difficulty" ? " invalid" : "")}
                 min={1}
@@ -652,8 +684,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
             <div>
-              <label className="label">{t("distillruns")}</label>
+              <label className="label" htmlFor="f-distillruns">{t("distillruns")}</label>
               <input
+                id="f-distillruns"
                 type="number"
                 className="input"
                 min={0}
@@ -662,8 +695,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               />
             </div>
             <div>
-              <label className="label">{t("wood")}</label>
+              <label className="label" htmlFor="f-wood">{t("wood")}</label>
               <select
+                id="f-wood"
                 className="select"
                 value={form.wood}
                 onChange={(e) => setForm({ wood: e.target.value })}
@@ -676,8 +710,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               </select>
             </div>
             <div>
-              <label className="label">{t("age")}</label>
+              <label className="label" htmlFor="f-age">{t("age")}</label>
               <input
+                id="f-age"
                 type="number"
                 className="input"
                 min={0}
@@ -688,9 +723,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
           </div>
 
           <div className="mb-3">
-            <label className="label">{t("color")}</label>
+            <label className="label" htmlFor="f-color">{t("color")}</label>
             <div className="flex items-center gap-2 mb-2">
               <select
+                id="f-color"
                 className="select"
                 value={isCustomColor ? "__custom__" : form.color}
                 onChange={(e) => {
@@ -708,6 +744,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
             </div>
             <div className="flex items-center gap-2">
               <input
+                id="f-custom-color"
                 type="text"
                 className="input"
                 placeholder={t("ph_customcolor")}
@@ -742,9 +779,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
             <div className="collapse-body">
 
           <div className="mb-3">
-            <label className="label">{t("effect_label")}</label>
+            <label className="label" htmlFor="f-effects">{t("effect_label")}</label>
             <ChipInput
               data={EFFECTS}
+              inputId="f-effects"
               lines={linesOf(String(form.effects ?? ""))}
               lang={lang}
               t={t}
@@ -768,8 +806,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
             <div>
-              <label className="label">{t("alcohol")}</label>
+              <label className="label" htmlFor="f-alcohol">{t("alcohol")}</label>
               <input
+                id="f-alcohol"
                 type="number"
                 className="input"
                 min={0}
@@ -780,8 +819,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               />
             </div>
             <div>
-              <label className="label">{t("glint")}</label>
+              <label className="label" htmlFor="f-glint">{t("glint")}</label>
               <select
+                id="f-glint"
                 className="select"
                 value={form.glint}
                 onChange={(e) => setForm({ glint: e.target.value })}
@@ -791,8 +831,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               </select>
             </div>
             <div>
-              <label className="label">{t("distilltime")}</label>
+              <label className="label" htmlFor="f-distilltime">{t("distilltime")}</label>
               <input
+                id="f-distilltime"
                 type="number"
                 className="input"
                 min={0}
@@ -804,10 +845,11 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
           </div>
 
           <div className="mb-3">
-            <label className="label" title={t("cmd_tooltip")}>
+            <label className="label" htmlFor="f-cmd" title={t("cmd_tooltip")}>
               {t("custommodeldata")}
             </label>
             <input
+              id="f-cmd"
               type="text"
               className="input"
               placeholder={t("ph_cmd")}
@@ -818,8 +860,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="label">{t("drinktitle")}</label>
+              <label className="label" htmlFor="f-drinktitle">{t("drinktitle")}</label>
               <input
+                id="f-drinktitle"
                 type="text"
                 className="input"
                 placeholder={t("ph_drinktitle")}
@@ -828,8 +871,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               />
             </div>
             <div>
-              <label className="label">{t("drinksubtitle")}</label>
+              <label className="label" htmlFor="f-drinksubtitle">{t("drinksubtitle")}</label>
               <input
+                id="f-drinksubtitle"
                 type="text"
                 className="input"
                 placeholder={t("ph_drinksubtitle")}
@@ -839,8 +883,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
             </div>
           </div>
           <div className="mb-3">
-            <label className="label">{t("drinkmessage")}</label>
+            <label className="label" htmlFor="f-drinkmessage">{t("drinkmessage")}</label>
             <input
+              id="f-drinkmessage"
               type="text"
               className="input"
               placeholder={t("ph_drinkmessage")}
@@ -851,8 +896,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             <div>
-              <label className="label">{t("servercommands")}</label>
+              <label className="label" htmlFor="f-servercommands">{t("servercommands")}</label>
               <textarea
+                id="f-servercommands"
                 className="textarea"
                 rows={2}
                 placeholder={t("command_placeholder")}
@@ -861,8 +907,9 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
               />
             </div>
             <div>
-              <label className="label">{t("playercommands")}</label>
+              <label className="label" htmlFor="f-playercommands">{t("playercommands")}</label>
               <textarea
+                id="f-playercommands"
                 className="textarea"
                 rows={2}
                 placeholder={t("playercommand_placeholder")}

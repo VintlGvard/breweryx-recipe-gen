@@ -11,6 +11,7 @@ interface ChipInputProps {
   t: (key: string) => string;
   searchPlaceholder: string;
   duplicateKey: string;
+  inputId?: string;
   extras: { key: string; placeholder: string; min: number; max: number; def: string; width: string }[];
   chipLabel: (parts: string[]) => React.ReactNode;
   onChange: (lines: string[]) => void;
@@ -24,6 +25,7 @@ export default function ChipInput({
   t,
   searchPlaceholder,
   duplicateKey,
+  inputId,
   extras,
   chipLabel,
   onChange,
@@ -129,6 +131,7 @@ export default function ChipInput({
         <div className="relative flex-grow">
           <input
             ref={inputRef}
+            id={inputId}
             type="text"
             className="input w-full"
             value={query}
