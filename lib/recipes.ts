@@ -54,8 +54,14 @@ export function getRandomRecipes(count: number): Array<Record<string, unknown>> 
   return result;
 }
 
-const KNOWN_ITEMS = new Set(ITEMS.map((item) => item.name));
+const ITEM_BY_NAME = new Map(ITEMS.map((item) => [item.name, item]));
 const RECIPE_ID_RE = /^[a-zA-Z0-9_]+$/;
+
+export function getItemLabel(name: string, lang: string): string {
+  const item = ITEM_BY_NAME.get(name);
+  if (!item) return name.replace(/_/g, " ").toLowerCase();
+  return lang === "ru" ? item.name_ru : item.displayName;
+}
 
 export const DEFAULT_FORM: RecipeForm = {
   recipe_id: "my_beer",
@@ -134,7 +140,7 @@ function parseIngredients(text: string): { items: string[]; warnings: string[] }
       );
     }
     const name = line.split("/")[0].trim();
-    if (!KNOWN_ITEMS.has(name)) {
+    if (!ITEM_BY_NAME.has(name)) {
       warnings.push(`Неизвестный предмет: "${name}" (может не работать в BreweryX)`);
     }
     items.push(line);

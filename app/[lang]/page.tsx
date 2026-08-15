@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   const lang = rawLang as Locale;
   if (!LOCALES.includes(lang)) notFound();
 
-  const c = LANDING[lang];
+  const c = LANDING[lang]!;
 
   return (
     <>
@@ -80,7 +80,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             </div>
 
             <h3 className="collapse-heading">{c.examplesTitle}</h3>
-            <p className="text-muted text-sm" style={{ marginBottom: "0.75rem" }}>{c.examplesText}</p>
+            <p className="text-muted text-sm mb-3">{c.examplesText}</p>
             <div className="example-grid">
               {ALL_RECIPES.slice(0, 8).map((ex, i) => {
                 const id = String(ex.recipe_id);
@@ -101,7 +101,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             </div>
 
             <h3 className="collapse-heading">{c.faqTitle}</h3>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div className="flex flex-col gap-2">
               {c.faq.map((item, i) => (
                 <details key={i} className="faq-item fadeUp" style={{ animationDelay: `${Math.min(0.05 + i * 0.04, 0.3)}s` }}>
                   <summary>{item.q}</summary>
@@ -110,7 +110,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               ))}
             </div>
 
-            <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
+            <div className="mt-6 text-center">
               <Link href={`/${lang}/guide`} className="btn btn-outline">
                 {lang === "ru" ? "Полный справочник формата рецептов →" : "Full recipe format reference →"}
               </Link>
@@ -120,10 +120,10 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
         <hr className="section-divider fade-in stagger-4" />
 
-        <section id="generator" className="mb-8" style={{ scrollMarginTop: "2rem" }}>
-          <div className="page-header fadeUp stagger-5" style={{ textAlign: "center" }}>
+        <section id="generator" className="mb-8 scroll-mt-8">
+          <div className="page-header fadeUp stagger-5 text-center">
             <h2>{c.genTitle}</h2>
-            <p style={{ maxWidth: "560px", margin: "0 auto" }}>{c.genSubtitle}</p>
+            <p className="max-w-[560px] mx-auto">{c.genSubtitle}</p>
           </div>
           <div className="scale-in stagger-6">
             <RecipeApp lang={lang} />

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { Locale } from "@/lib/content";
 import { LOCALES, LANDING } from "@/lib/content";
 import LangSetter from "./lang-setter";
@@ -10,6 +11,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
+  if (!LOCALES.includes(lang)) return {};
   const c = LANDING[lang];
   return {
     title: c.meta.title,

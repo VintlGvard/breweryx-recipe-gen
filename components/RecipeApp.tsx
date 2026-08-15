@@ -249,7 +249,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (importOpen) return;
+      if (importOpen) {
+        if (e.key === "Escape") setImportOpen(false);
+        return;
+      }
       if (e.ctrlKey && e.key === "Enter") {
         e.preventDefault();
         handleGenerate();

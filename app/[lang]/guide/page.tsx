@@ -24,7 +24,7 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
   const lang = rawLang as Locale;
   if (!LOCALES.includes(lang)) notFound();
 
-  const g = GUIDE[lang];
+  const g = GUIDE[lang]!;
 
   const tocItems = g.sections.map((s, i) => ({
     id: `section-${i}`,
@@ -74,7 +74,7 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
         </div>
 
         {g.sections.map((section, i) => (
-          <section key={i} id={`section-${i}`} className="mb-8 fadeUp" style={{ scrollMarginTop: "1.5rem", animationDelay: `${Math.min(0.1 + i * 0.05, 0.5)}s` }}>
+          <section key={i} id={`section-${i}`} className="mb-8 fadeUp scroll-mt-6" style={{ animationDelay: `${Math.min(0.1 + i * 0.05, 0.5)}s` }}>
             <details className="collapse-section" open>
               <summary>{section.heading}</summary>
               <div className="collapse-body">
@@ -82,7 +82,7 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
                   <p key={j}>{p}</p>
                 ))}
                 {section.list && (
-                  <dl style={{ display: "grid", gap: "0.5rem", marginTop: "0.75rem" }}>
+                  <dl className="grid gap-2 mt-3">
                     {section.list.map((item, j) => (
                       <div key={j} className="recipe-param-card">
                         <div className="recipe-param-card-label">{item.term}</div>
@@ -101,7 +101,7 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
 
         <hr className="section-divider" />
 
-        <div className="fadeUp stagger-3" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <div className="fadeUp stagger-3 flex flex-wrap gap-2">
           <Link href={`/${lang}`} className="btn btn-primary">
             {lang === "ru" ? "Открыть генератор" : "Open generator"}
           </Link>

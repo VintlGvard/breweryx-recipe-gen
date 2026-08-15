@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Locale } from "@/lib/content";
 import { LOCALES, RECIPES_CONTENT } from "@/lib/content";
-import { ALL_RECIPES, ITEMS, COLORS, WOOD_TYPES, generateYaml, formFromRecord, getDisplayName } from "@/lib/recipes";
+import { ALL_RECIPES, COLORS, WOOD_TYPES, generateYaml, formFromRecord, getDisplayName, getItemLabel } from "@/lib/recipes";
 import { breadcrumbJsonLd } from "@/lib/seo";
 
 function getRecipeColor(slug: string): string {
@@ -27,12 +27,6 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     description: content.meta.description,
     keywords: content.meta.keywords,
   };
-}
-
-function getItemName(itemName: string, lang: Locale): string {
-  const item = ITEMS.find((i) => i.name === itemName);
-  if (!item) return itemName.replace(/_/g, " ").toLowerCase();
-  return lang === "ru" ? item.name_ru : item.displayName;
 }
 
 export default async function RecipeDetailPage({ params }: { params: Promise<{ lang: string; slug: string }> }) {
@@ -61,7 +55,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
     .filter(Boolean)
     .map((line) => {
       const [item, amount] = line.split("/");
-      return `${getItemName(item, lang)} ×${amount}`;
+      return `${getItemLabel(item, lang)} ×${amount}`;
     })
     .join(", ");
 
@@ -167,11 +161,11 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
         <details className="collapse-section mb-6 fadeUp stagger-3" open>
           <summary>
             YAML
-            <span className="stat-mono" style={{ marginLeft: "auto", fontWeight: 400 }}>
+            <span className="stat-mono ml-auto font-normal">
               {yamlText.split("\n").length} lines
             </span>
           </summary>
-          <div className="collapse-body" style={{ padding: "0 1rem 1rem" }}>
+          <div className="collapse-body">
             <pre className="yaml-preview overflow-x-auto">{yamlText}</pre>
           </div>
         </details>
@@ -194,7 +188,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
 
         <hr className="section-divider" />
 
-        <div className="fadeUp stagger-5" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <div className="fadeUp stagger-5 flex flex-wrap gap-2">
           <Link
             href={`/${lang}?load=${slug}`}
             className="btn btn-primary"

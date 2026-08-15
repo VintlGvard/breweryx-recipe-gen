@@ -1236,3 +1236,13 @@ body {
   animation: scaleIn 0.35s var(--ease) both;
 }
 
+
+.skeleton {
+  background: var(--surface-2);
+  animation: skeletonPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}

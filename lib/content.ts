@@ -828,6 +828,246 @@ export const RECIPES_CONTENT: Record<Locale, Record<string, RecipePageContent>> 
         "Перезагрузите сервер — таинственная медовуха готова!"
       ],
     },
+    dark_stout: {
+      meta: {
+        title: "Рецепт Полуночного Стаута для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт полуночного стаута для BreweryX в Minecraft: пшеница, какао-бобы, сахар, чёрный цвет, эффект ночного зрения, 10% алкоголя.",
+        keywords: [
+          "полуночный стаут breweryx",
+          "рецепт стаута minecraft",
+          "breweryx стаут yaml",
+          "midnight stout recipe",
+          "minecraft brewery stout",
+          "breweryx stout config"
+        ],
+      },
+      intro: [
+        "Полуночный стаут — это тёмное пиво для BreweryX с насыщенным вкусом какао и эффектом ночного зрения. Чёрный, как бездна, и бархатистый — отличный выбор для вечерних приключений под луной.",
+        "Варится из пшеницы, какао-бобов и сахара всего 8 минут, без дистилляции и выдержки. Умеренная сложность 5 делает его доступным рецептом для игроков среднего уровня."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код полуночного стаута из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — полуночный стаут готов!"
+      ],
+    },
+    frostbite_ipa: {
+      meta: {
+        title: "Рецепт Ледяного IPA для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт ледяного IPA для BreweryX в Minecraft: пшеница, ядовитая картофелина, бирюзовый цвет, эффект скорости, 12% алкоголя.",
+        keywords: [
+          "ледяной ipa breweryx",
+          "рецепт ipa minecraft",
+          "breweryx ipa yaml",
+          "frostbite ipa recipe",
+          "minecraft brewery ipa",
+          "breweryx india pale ale"
+        ],
+      },
+      intro: [
+        "Ледяной IPA — это освежающий горьковатый эль для BreweryX с эффектом скорости. Ядовитая картофелина в составе придаёт характерную хмелевую горчинку, а бирюзовый цвет выделяет напиток на фоне остальных.",
+        "Варится 7 минут из пшеницы, сахара и воды. Сложность 6 и 12% алкоголя — напиток для игроков, которые уже освоили базовые рецепты."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код ледяного IPA из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — ледяной IPA готов!"
+      ],
+    },
+    sunset_sangria: {
+      meta: {
+        title: "Рецепт Сангрии Заката для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт сангрии заката для BreweryX в Minecraft: яблоки, сладкие ягоды, сахар, оранжевый цвет, эффект регенерации, 7% алкоголя.",
+        keywords: [
+          "сангрия breweryx",
+          "рецепт сангрии minecraft",
+          "breweryx сангрия yaml",
+          "sunset sangria recipe",
+          "minecraft brewery sangria",
+          "breweryx fruit drink"
+        ],
+      },
+      intro: [
+        "Сангрия заката — это фруктовый напиток для BreweryX из яблок и сладких ягод с эффектом регенерации. Оранжевый цвет и вкус лета делают его отличным летним рецептом для вашего сервера.",
+        "Готовится всего за 5 минут со сложностью 2 — один из самых простых рецептов каталога. Идеальный выбор для начинающих виноделов."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код сангрии заката из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — сангрия заката готова!"
+      ],
+    },
+    shadow_porter: {
+      meta: {
+        title: "Рецепт Теневого Портера для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт теневого портера для BreweryX в Minecraft: пшеница, какао, адский нарост, тёмно-красный цвет, эффект невидимости, 14% алкоголя.",
+        keywords: [
+          "теневой портер breweryx",
+          "рецепт портера minecraft",
+          "breweryx портер yaml",
+          "shadow porter recipe",
+          "minecraft brewery porter",
+          "breweryx invisibility drink"
+        ],
+      },
+      intro: [
+        "Теневой портер — это крепкий тёмный напиток для BreweryX с эффектом невидимости. Тёмный, как ночь, и сильный, как сталь — адский нарост в составе добавляет магическую нотку.",
+        "Варится 10 минут из пшеницы, какао-бобов, сахара и адского нароста. Высокая сложность 8 и 14% алкоголя требуют от игрока настоящего мастерства пивоварения."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код теневого портера из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — теневой портер готов!"
+      ],
+    },
+    golden_cider: {
+      meta: {
+        title: "Рецепт Золотого Урожайного Сидра для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт золотого сидра для BreweryX в Minecraft: яблоки, сахар, пшеница, жёлтый цвет, 6% алкоголя, лёгкая сложность.",
+        keywords: [
+          "золотой сидр breweryx",
+          "рецепт сидра minecraft",
+          "breweryx сидр yaml",
+          "golden cider recipe",
+          "minecraft brewery cider",
+          "breweryx apple drink"
+        ],
+      },
+      intro: [
+        "Золотой урожайный сидр — это игристый напиток для BreweryX из отборных яблок. Светлый, хрустящий и простой в приготовлении — базовый рецепт для любого питейного меню сервера.",
+        "Готовится всего 4 минуты со сложностью 2 и лёгкими 6% алкоголя. Отличный первый рецепт для новичков, осваивающих плагин."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код золотого сидра из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — золотой сидр готов!"
+      ],
+    },
+    nether_rum: {
+      meta: {
+        title: "Рецепт Адского Огненного Рома для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт адского рома для BreweryX в Minecraft: сахар, огненный порошок, двойная дистилляция, выдержка в багровом грибе, 40% алкоголя.",
+        keywords: [
+          "адский ром breweryx",
+          "рецепт рома minecraft",
+          "breweryx ром yaml",
+          "netherfire rum recipe",
+          "minecraft brewery rum",
+          "breweryx fire resistance drink"
+        ],
+      },
+      intro: [
+        "Адский огненный ром — это пряный напиток из глубин Нижнего мира с эффектом огнестойкости. Огненный порошок в составе и выдержка в бочке из багрового гриба делают его идеальным спутником походов в ад.",
+        "Рецепт серьёзный: 14 минут варки, две перегонки и четыре дня выдержки. Сложность 7 и 40% алкоголя — награда за терпение стоит каждой минуты."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код адского рома из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — адский ром готов к выдержке!"
+      ],
+    },
+    thunder_lager: {
+      meta: {
+        title: "Рецепт Грозового Лагера для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт грозового лагера для BreweryX в Minecraft: пшеница, сахар, вода, серый цвет, эффект скорости, 5% алкоголя.",
+        keywords: [
+          "грозовой лагер breweryx",
+          "рецепт лагера minecraft",
+          "breweryx лагер yaml",
+          "thunderstorm lager recipe",
+          "minecraft brewery lager",
+          "breweryx light beer"
+        ],
+      },
+      intro: [
+        "Грозовой лагер — это лёгкий освежающий напиток для BreweryX, чистый и хрустящий, как удар молнии. Эффект скорости и всего 5% алкоголя делают его повседневным напитком для игроков.",
+        "Простейший состав из пшеницы, сахара и воды, 5 минут варки и сложность 3 — быстрый рецепт на каждый день, который сварит даже новичок."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код грозового лагера из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — грозовой лагер готов!"
+      ],
+    },
+    berry_blast: {
+      meta: {
+        title: "Рецепт Ягодного Взрыва для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт ягодного коктейля для BreweryX в Minecraft: сладкие ягоды, сахар, розовый цвет, эффект скорости, 4% алкоголя.",
+        keywords: [
+          "ягодный коктейль breweryx",
+          "рецепт ягодного напитка minecraft",
+          "breweryx ягоды yaml",
+          "berry burst recipe",
+          "minecraft berry drink",
+          "breweryx sweet cocktail"
+        ],
+      },
+      intro: [
+        "Ягодный взрыв — это взрыв вкуса для BreweryX: сладкий, терпкий и ярко-розовый. Варится всего из трёх ингредиентов — сладких ягод, сахара и воды.",
+        "3 минуты варки, сложность 2 и лёгкие 4% алкоголя — самый быстрый рецепт каталога. Отличный десертный напиток и первое знакомство с плагином."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код ягодного взрыва из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — ягодный взрыв готов!"
+      ],
+    },
+    obsidian_stout: {
+      meta: {
+        title: "Рецепт Обсидианового Тёмного Эля для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт обсидианового эля для BreweryX в Minecraft: пшеница, какао, обсидиан, чёрный цвет, эффект сопротивления 2 уровня, 16% алкоголя.",
+        keywords: [
+          "обсидиановый эль breweryx",
+          "рецепт тёмного эля minecraft",
+          "breweryx эль yaml",
+          "obsidian dark ale recipe",
+          "minecraft resistance drink",
+          "breweryx hard beer"
+        ],
+      },
+      intro: [
+        "Обсидиановый тёмный эль — это сверхкрепкий напиток для BreweryX с эффектом сопротивления второго уровня. Твёрдый и тёмный, почти неразрушимый — кусочек обсидиана в составе делает его по-настоящему уникальным.",
+        "Рецепт для мастеров: 12 минут варки, сложность 9 и 16% алкоголя. Десять порций пшеницы и четыре какао-бобов — ингредиенты не из дешёвых, но эффект того стоит."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код обсидианового эля из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — обсидиановый эль готов!"
+      ],
+    },
+    crystal_vodka: {
+      meta: {
+        title: "Рецепт Хрустальной Водки для BreweryX — YAML-конфиг",
+        description: "Готовый YAML-рецепт хрустальной водки для BreweryX в Minecraft: пшеница, вода, сахар, тройная дистилляция, белый цвет, 50% алкоголя.",
+        keywords: [
+          "хрустальная водка breweryx",
+          "рецепт водки minecraft",
+          "breweryx водка yaml",
+          "crystal vodka recipe",
+          "minecraft brewery vodka",
+          "breweryx strongest drink"
+        ],
+      },
+      intro: [
+        "Хрустальная водка — это чистейший и самый крепкий напиток каталога BreweryX: 50% алкоголя после тройной дистилляции. Прозрачная, как стекло, и гладкая, как лёд.",
+        "Минимализм в составе — только пшеница, вода и сахар — компенсируется мастерством: 8 минут варки, три перегонки по 120 секунд и сложность 8. Эталонный рецепт для ценителей крепкого."
+      ],
+      installSteps: [
+        "Скопируйте YAML-код хрустальной водки из генератора.",
+        "Откройте файл plugins/BreweryX/recipes.yml на сервере.",
+        "Вставьте рецепт в конец файла.",
+        "Перезагрузите сервер — хрустальная водка готова к дистилляции!"
+      ],
+    },
   },
   en: {
     honey_ale: {
@@ -949,6 +1189,246 @@ export const RECIPES_CONTENT: Record<Locale, Record<string, RecipePageContent>> 
         "Open the plugins/BreweryX/recipes.yml file on your server.",
         "Paste the recipe at the end of the file.",
         "Reload the server — arcane mead is ready!"
+      ],
+    },
+    dark_stout: {
+      meta: {
+        title: "Midnight Stout Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for midnight stout for the BreweryX Minecraft plugin: wheat, cocoa beans, sugar, black color, night vision effect, 10% alcohol.",
+        keywords: [
+          "midnight stout breweryx",
+          "stout recipe minecraft",
+          "breweryx stout yaml",
+          "dark beer recipe minecraft",
+          "minecraft brewery stout",
+          "breweryx stout config"
+        ],
+      },
+      intro: [
+        "Midnight stout is a dark beer for BreweryX with a rich cocoa flavor and a night vision effect. Dark as the void and velvety — an excellent choice for moonlit adventures.",
+        "Brewed from wheat, cocoa beans, and sugar in just 8 minutes, with no distillation or aging. Moderate difficulty 5 makes it accessible for mid-level players."
+      ],
+      installSteps: [
+        "Copy the YAML code for midnight stout from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — midnight stout is ready!"
+      ],
+    },
+    frostbite_ipa: {
+      meta: {
+        title: "Frostbite IPA Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for frostbite IPA for the BreweryX Minecraft plugin: wheat, poisonous potato, cyan color, speed effect, 12% alcohol.",
+        keywords: [
+          "frostbite ipa breweryx",
+          "ipa recipe minecraft",
+          "breweryx ipa yaml",
+          "india pale ale minecraft",
+          "minecraft brewery ipa",
+          "breweryx hoppy beer"
+        ],
+      },
+      intro: [
+        "Frostbite IPA is a refreshing, hoppy ale for BreweryX with a speed effect. The poisonous potato in the recipe adds a signature bitter note, while the cyan color makes the drink stand out.",
+        "Brewed in 7 minutes from wheat, sugar, and water. Difficulty 6 and 12% alcohol — a drink for players who have already mastered the basics."
+      ],
+      installSteps: [
+        "Copy the YAML code for frostbite IPA from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — frostbite IPA is ready!"
+      ],
+    },
+    sunset_sangria: {
+      meta: {
+        title: "Sunset Sangria Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for sunset sangria for the BreweryX Minecraft plugin: apples, sweet berries, sugar, orange color, regeneration effect, 7% alcohol.",
+        keywords: [
+          "sunset sangria breweryx",
+          "sangria recipe minecraft",
+          "breweryx sangria yaml",
+          "fruit wine minecraft",
+          "minecraft brewery sangria",
+          "breweryx fruit drink"
+        ],
+      },
+      intro: [
+        "Sunset sangria is a fruity BreweryX drink made from apples and sweet berries with a regeneration effect. The orange color and summer taste make it a great warm-season recipe for your server.",
+        "Ready in just 5 minutes with difficulty 2 — one of the simplest recipes in the catalog. A perfect choice for beginner brewers."
+      ],
+      installSteps: [
+        "Copy the YAML code for sunset sangria from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — sunset sangria is ready!"
+      ],
+    },
+    shadow_porter: {
+      meta: {
+        title: "Shadow Porter Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for shadow porter for the BreweryX Minecraft plugin: wheat, cocoa, nether wart, dark red color, invisibility effect, 14% alcohol.",
+        keywords: [
+          "shadow porter breweryx",
+          "porter recipe minecraft",
+          "breweryx porter yaml",
+          "invisibility drink minecraft",
+          "minecraft brewery porter",
+          "breweryx dark beer"
+        ],
+      },
+      intro: [
+        "Shadow porter is a strong dark BreweryX drink with an invisibility effect. Dark as night and strong as steel — the nether wart in the recipe adds a magical note.",
+        "Brewed for 10 minutes from wheat, cocoa beans, sugar, and nether wart. High difficulty 8 and 14% alcohol demand true brewing mastery."
+      ],
+      installSteps: [
+        "Copy the YAML code for shadow porter from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — shadow porter is ready!"
+      ],
+    },
+    golden_cider: {
+      meta: {
+        title: "Golden Harvest Cider Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for golden harvest cider for the BreweryX Minecraft plugin: apples, sugar, wheat, yellow color, 6% alcohol, easy difficulty.",
+        keywords: [
+          "golden cider breweryx",
+          "cider recipe minecraft",
+          "breweryx cider yaml",
+          "apple cider minecraft",
+          "minecraft brewery cider",
+          "breweryx apple drink"
+        ],
+      },
+      intro: [
+        "Golden harvest cider is a sparkling BreweryX drink made from the finest apples. Light, crisp, and simple to make — a staple recipe for any server's drink menu.",
+        "Ready in just 4 minutes with difficulty 2 and a light 6% alcohol. An excellent first recipe for newcomers learning the plugin."
+      ],
+      installSteps: [
+        "Copy the YAML code for golden cider from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — golden cider is ready!"
+      ],
+    },
+    nether_rum: {
+      meta: {
+        title: "Netherfire Rum Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for netherfire rum for the BreweryX Minecraft plugin: sugar, blaze powder, double distillation, crimson fungus barrel aging, 40% alcohol.",
+        keywords: [
+          "netherfire rum breweryx",
+          "rum recipe minecraft",
+          "breweryx rum yaml",
+          "fire resistance drink minecraft",
+          "minecraft brewery rum",
+          "breweryx nether drink"
+        ],
+      },
+      intro: [
+        "Netherfire rum is a spicy drink from the depths of the Nether with a fire resistance effect. Blaze powder in the recipe and aging in a crimson fungus barrel make it the perfect companion for hell expeditions.",
+        "A serious recipe: 14 minutes of brewing, two distillation runs, and four days of aging. Difficulty 7 and 40% alcohol — the reward is worth every minute."
+      ],
+      installSteps: [
+        "Copy the YAML code for netherfire rum from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — netherfire rum is ready for aging!"
+      ],
+    },
+    thunder_lager: {
+      meta: {
+        title: "Thunderstorm Lager Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for thunderstorm lager for the BreweryX Minecraft plugin: wheat, sugar, water, grey color, speed effect, 5% alcohol.",
+        keywords: [
+          "thunderstorm lager breweryx",
+          "lager recipe minecraft",
+          "breweryx lager yaml",
+          "light beer minecraft",
+          "minecraft brewery lager",
+          "breweryx easy beer"
+        ],
+      },
+      intro: [
+        "Thunderstorm lager is a light, refreshing BreweryX drink — crisp and clean like a bolt of lightning. The speed effect and just 5% alcohol make it an everyday drink for players.",
+        "The simplest composition of wheat, sugar, and water, 5 minutes of brewing and difficulty 3 — a quick daily recipe even a beginner can brew."
+      ],
+      installSteps: [
+        "Copy the YAML code for thunderstorm lager from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — thunderstorm lager is ready!"
+      ],
+    },
+    berry_blast: {
+      meta: {
+        title: "Berry Burst Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for berry burst cocktail for the BreweryX Minecraft plugin: sweet berries, sugar, pink color, speed effect, 4% alcohol.",
+        keywords: [
+          "berry burst breweryx",
+          "berry drink recipe minecraft",
+          "breweryx berries yaml",
+          "sweet berry cocktail minecraft",
+          "minecraft berry drink",
+          "breweryx sweet cocktail"
+        ],
+      },
+      intro: [
+        "Berry burst is an explosion of flavor for BreweryX: sweet, tangy, and bright pink. Brewed from just three ingredients — sweet berries, sugar, and water.",
+        "3 minutes of brewing, difficulty 2 and a light 4% alcohol — the fastest recipe in the catalog. A great dessert drink and a perfect first taste of the plugin."
+      ],
+      installSteps: [
+        "Copy the YAML code for berry burst from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — berry burst is ready!"
+      ],
+    },
+    obsidian_stout: {
+      meta: {
+        title: "Obsidian Dark Ale Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for obsidian dark ale for the BreweryX Minecraft plugin: wheat, cocoa, obsidian, black color, resistance II effect, 16% alcohol.",
+        keywords: [
+          "obsidian dark ale breweryx",
+          "dark ale recipe minecraft",
+          "breweryx ale yaml",
+          "resistance drink minecraft",
+          "minecraft hard beer",
+          "breweryx obsidian drink"
+        ],
+      },
+      intro: [
+        "Obsidian dark ale is an ultra-strong BreweryX drink with a Resistance II effect. Hard and dark, nearly indestructible — the chunk of obsidian in the recipe makes it truly unique.",
+        "A recipe for masters: 12 minutes of brewing, difficulty 9 and 16% alcohol. Ten portions of wheat and four cocoa beans — the ingredients are not cheap, but the effect is worth it."
+      ],
+      installSteps: [
+        "Copy the YAML code for obsidian dark ale from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — obsidian dark ale is ready!"
+      ],
+    },
+    crystal_vodka: {
+      meta: {
+        title: "Crystal Vodka Recipe for BreweryX — YAML Config",
+        description: "Ready YAML recipe for crystal vodka for the BreweryX Minecraft plugin: wheat, water, sugar, triple distillation, white color, 50% alcohol.",
+        keywords: [
+          "crystal vodka breweryx",
+          "vodka recipe minecraft",
+          "breweryx vodka yaml",
+          "strongest drink minecraft",
+          "minecraft brewery vodka",
+          "breweryx distilled spirit"
+        ],
+      },
+      intro: [
+        "Crystal vodka is the purest and strongest drink in the BreweryX catalog: 50% alcohol after triple distillation. Pure as glass and smooth as ice.",
+        "The minimal composition — just wheat, water, and sugar — is balanced by craftsmanship: 8 minutes of brewing, three 120-second distillation runs, and difficulty 8. A benchmark recipe for strong-drink connoisseurs."
+      ],
+      installSteps: [
+        "Copy the YAML code for crystal vodka from the generator.",
+        "Open the plugins/BreweryX/recipes.yml file on your server.",
+        "Paste the recipe at the end of the file.",
+        "Reload the server — crystal vodka is ready for distillation!"
       ],
     },
   },

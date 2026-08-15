@@ -75,7 +75,7 @@ export default async function RecipesPage({ params }: { params: Promise<{ lang: 
 
         <hr className="section-divider" />
 
-        <div className="fadeUp stagger-4" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+        <div className="fadeUp stagger-4 flex flex-wrap gap-2">
           <Link href={`/${lang}`} className="btn btn-primary">
             {lang === "ru" ? "Открыть генератор" : "Open generator"}
           </Link>
