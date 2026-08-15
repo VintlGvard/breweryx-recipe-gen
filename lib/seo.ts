@@ -1,8 +1,5 @@
 import type { Locale } from "./content";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+import { SITE_URL } from "./site";
 
 export function webSiteJsonLd(locale: Locale) {
   return {
@@ -95,40 +92,12 @@ export function itemListJsonLd(locale: Locale, items: { name: string; url: strin
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name:
-      locale === "ru"
-        ? "Рецепты BreweryX"
-        : "BreweryX Recipes",
+    name: locale === "ru" ? "Рецепты BreweryX" : "BreweryX Recipes",
     itemListElement: items.map((item, i) => ({
       "@type": "ListItem",
       position: i + 1,
       url: `${SITE_URL}${item.url}`,
       name: item.name,
     })),
-  };
-}
-
-export function softwareApplicationJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "BreweryX Recipe Generator",
-    applicationCategory: "DeveloperApplication",
-    operatingSystem: "Any (Web-based)",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    url: SITE_URL,
-    description: "Free online YAML recipe generator for the BreweryX Minecraft plugin.",
-    featureList: [
-      "Live YAML preview",
-      "Multi-recipe workspace",
-      "Smart item search",
-      "YAML import and export",
-      "Color code support",
-      "Bilingual UI (RU/EN)",
-    ],
   };
 }

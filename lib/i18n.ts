@@ -1,4 +1,6 @@
-export type Lang = "ru" | "en";
+import type { Locale } from "./content";
+
+export type Lang = Locale;
 
 export const TRANSLATIONS: Record<Lang, Record<string, string>> = {
   en: {

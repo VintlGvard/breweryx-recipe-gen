@@ -164,7 +164,6 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
           </div>
         </section>
 
-        {/* YAML - collapsible */}
         <details className="collapse-section mb-6 fadeUp stagger-3" open>
           <summary>
             YAML
@@ -177,7 +176,6 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
           </div>
         </details>
 
-        {/* Install steps - collapsible */}
         {content?.installSteps && (
           <details className="collapse-section mb-6 fadeUp stagger-4">
             <summary>
@@ -196,7 +194,6 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
 
         <hr className="section-divider" />
 
-        {/* Actions */}
         <div className="fadeUp stagger-5" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
           <Link
             href={`/${lang}?load=${slug}`}

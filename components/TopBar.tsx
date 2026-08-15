@@ -1,52 +1,63 @@
 "use client";
 
-import { useEffect, useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 const COOKIE = "brewery_theme";
 
-function readCookie(): "light" | "dark" {
-  if (typeof document === "undefined") return "light";
+type Theme = "light" | "dark";
+
+function readStoredTheme(): Theme {
   try {
-    const stored = document.cookie
+    const cookie = document.cookie
       .split("; ")
       .find((c) => c.startsWith(`${COOKIE}=`))
       ?.split("=")[1];
+    const stored = cookie ?? localStorage.getItem(COOKIE);
     return stored === "dark" ? "dark" : "light";
   } catch {
     return "light";
   }
 }
 
-// ── external theme store ──
-let _theme: "light" | "dark" = "light";
-const _listeners = new Set<() => void>();
+let theme: Theme = "light";
+const listeners = new Set<() => void>();
 
-function subscribeTheme(cb: () => void) {
-  _listeners.add(cb);
-  return () => { _listeners.delete(cb); };
+function setTheme(next: Theme) {
+  theme = next;
+  document.documentElement.dataset.theme = next;
+  listeners.forEach((fn) => fn());
 }
 
-function themeSnapshot() { return _theme; }
-function themeServerSnapshot(): "light" | "dark" { return "light"; }
+function subscribeTheme(cb: () => void) {
+  listeners.add(cb);
+  return () => {
+    listeners.delete(cb);
+  };
+}
+
+function themeSnapshot(): Theme {
+  return theme;
+}
+
+function themeServerSnapshot(): Theme {
+  return "light";
+}
 
 export default function TopBar({ lang }: { lang: string }) {
-  const theme = useSyncExternalStore(subscribeTheme, themeSnapshot, themeServerSnapshot);
+  const current = useSyncExternalStore(subscribeTheme, themeSnapshot, themeServerSnapshot);
 
-  // Initialize from cookie on mount (external store — no setState)
   useEffect(() => {
-    _theme = readCookie();
-    document.documentElement.dataset.theme = _theme;
-    _listeners.forEach((fn) => fn());
+    setTheme(readStoredTheme());
   }, []);
 
   const toggleTheme = useCallback(() => {
-    const next = _theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
+    const next: Theme = theme === "dark" ? "light" : "dark";
     document.cookie = `${COOKIE}=${next}; path=/; max-age=31536000`;
-    try { localStorage.setItem(COOKIE, next); } catch {}
-    _theme = next;
-    _listeners.forEach((fn) => fn());
+    try {
+      localStorage.setItem(COOKIE, next);
+    } catch {}
+    setTheme(next);
   }, []);
 
   return (
@@ -82,7 +93,7 @@ export default function TopBar({ lang }: { lang: string }) {
             title={lang === "ru" ? "Сменить тему" : "Toggle theme"}
             onClick={toggleTheme}
           >
-            {theme === "dark" ? "Light" : "Dark"}
+            {current === "dark" ? "Light" : "Dark"}
           </button>
         </div>
       </div>

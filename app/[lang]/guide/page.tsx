@@ -49,7 +49,6 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
           <h1>{g.meta.title}</h1>
         </div>
 
-        {/* Intro - collapsible */}
         <details className="collapse-section mb-6 fadeUp stagger-1" open>
           <summary>
             {lang === "ru" ? "Введение" : "Introduction"}
@@ -61,7 +60,6 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
           </div>
         </details>
 
-        {/* Table of Contents */}
         <div className="guide-toc fadeUp stagger-2">
           <div className="guide-toc-title">
             {lang === "ru" ? "Содержание" : "Contents"}

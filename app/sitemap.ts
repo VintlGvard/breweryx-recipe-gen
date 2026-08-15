@@ -1,48 +1,37 @@
 import type { MetadataRoute } from "next";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-
-const RECIPES = [
-  "golden_beer",
-  "thunder_whiskey",
-  "health_potion",
-  "hot_chocolate",
-  "fire_mead",
-];
-
-const LOCALES = ["ru", "en"] as const;
+import { LOCALES } from "@/lib/content";
+import { ALL_RECIPES } from "@/lib/recipes";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [];
 
   for (const lang of LOCALES) {
-    entries.push({
-      url: `${SITE_URL}/${lang}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 1,
-    });
+    entries.push(
+      {
+        url: `${SITE_URL}/${lang}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 1,
+      },
+      {
+        url: `${SITE_URL}/${lang}/guide`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.8,
+      },
+      {
+        url: `${SITE_URL}/${lang}/recipes`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.8,
+      }
+    );
 
-    entries.push({
-      url: `${SITE_URL}/${lang}/guide`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    });
-
-    entries.push({
-      url: `${SITE_URL}/${lang}/recipes`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    });
-
-    for (const slug of RECIPES) {
+    for (const recipe of ALL_RECIPES) {
       entries.push({
-        url: `${SITE_URL}/${lang}/recipes/${slug}`,
+        url: `${SITE_URL}/${lang}/recipes/${String(recipe.recipe_id)}`,
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.7,

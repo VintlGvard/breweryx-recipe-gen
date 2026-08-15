@@ -1,10 +1,5 @@
 export type Locale = "ru" | "en";
 export const LOCALES: Locale[] = ["ru", "en"];
-export const DEFAULT_LOCALE: Locale = "ru";
-
-export function localePath(locale: Locale, path = "") {
-  return `/${locale}${path}`;
-}
 
 export interface SeoMeta {
   title: string;
@@ -48,7 +43,7 @@ export interface RecipePageContent {
   installSteps: string[];
 }
 
-export const YAML_EXAMPLE = `my_beer:
+const YAML_EXAMPLE = `my_beer:
   name: '&6Craft Beer'
   lore:
     - 'Tasty beer'
@@ -60,7 +55,7 @@ export const YAML_EXAMPLE = `my_beer:
   color: WHITE
   difficulty: 6`;
 
-export const EFFECTS_EXAMPLE = `effects:
+const EFFECTS_EXAMPLE = `effects:
   - SPEED/1/60
   - NAUSEA/1/30
 
@@ -69,7 +64,7 @@ effects:
   - SPEED/1-3/10-60
   - REGENERATION/1-2/5-30`;
 
-export const QUALITY_EXAMPLE = `name: '&4Bad Beer/&6Normal Beer/&aGood Beer'
+const QUALITY_EXAMPLE = `name: '&4Bad Beer/&6Normal Beer/&aGood Beer'
 lore:
   - '+Lukewarm beer'
   - '++Pleasant taste'
@@ -79,7 +74,7 @@ effects:
   - SPEED/1-3/10-60
   - REGENERATION/1-2/5-30`;
 
-export const FULL_EXAMPLE = `thunder_whiskey:
+const FULL_EXAMPLE = `thunder_whiskey:
   name: '&8Thunder Whiskey'
   lore:
     - 'Strong aged whiskey'

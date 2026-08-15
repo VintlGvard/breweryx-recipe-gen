@@ -16,6 +16,7 @@ import {
   cloneForm,
   formFromRecord,
   getDisplayName,
+  linesOf,
   type RecipeForm,
 } from "@/lib/recipes";
 import { COLOR_MAP, TRANSLATIONS, type Lang } from "@/lib/i18n";
@@ -57,15 +58,10 @@ const FORMAT_CODES: [string, string][] = [
 ];
 
 function newRecipeState(): RecipesState {
-  const form = cloneForm(DEFAULT_FORM);
-  if (ALL_RECIPES.length) {
-    const ex = ALL_RECIPES[Math.floor(Math.random() * ALL_RECIPES.length)];
-    for (const key of Object.keys(DEFAULT_FORM) as (keyof RecipeForm)[]) {
-      if (ex[key] != null) {
-        (form as unknown as Record<string, unknown>)[key] = ex[key];
-      }
-    }
-  }
+  const form =
+    ALL_RECIPES.length > 0
+      ? formFromRecord(ALL_RECIPES[Math.floor(Math.random() * ALL_RECIPES.length)])
+      : cloneForm(DEFAULT_FORM);
   return { recipes: { [form.recipe_id]: form }, current: form.recipe_id };
 }
 
@@ -73,11 +69,6 @@ function nextRecipeId(existing: string[]): string {
   let n = 1;
   while (existing.includes(`recipe_${n}`)) n++;
   return `recipe_${n}`;
-}
-
-function getCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : null;
 }
 
 export default function RecipeApp({ lang }: { lang: Lang }) {
@@ -114,12 +105,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
 
   useEffect(() => {
     const init = () => {
-      const savedTheme = getCookie("brewery_theme") ?? localStorage.getItem("brewery_theme");
-      const initialTheme = savedTheme === "dark" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", initialTheme);
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const loadId = urlParams.get("load");
+      const loadId = new URLSearchParams(window.location.search).get("load");
 
       if (loadId) {
         const ex = ALL_RECIPES.find((e) => String(e.recipe_id) === loadId);
@@ -127,11 +113,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
           const form = formFromRecord(ex);
           setState({ recipes: { [form.recipe_id]: form }, current: form.recipe_id });
           const name = getDisplayName(ex, lang);
-          const msg = TRANSLATIONS[lang].example_loaded.replace("{name}", name);
-          toastTimer.current = setTimeout(() => {
-            setToast({ msg, type: "success" });
-            toastTimer.current = setTimeout(() => setToast(null), 3000);
-          }, 300);
+          toastTimer.current = setTimeout(
+            () => showToast(TRANSLATIONS[lang].example_loaded.replace("{name}", name)),
+            300
+          );
           window.history.replaceState({}, "", window.location.pathname);
           return;
         }
@@ -168,9 +153,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
         setState(restored);
         if (!restoredToastShown.current) {
           restoredToastShown.current = true;
-          const msg = TRANSLATIONS[lang].restored_toast;
-          setToast({ msg, type: "info" });
-          toastTimer.current = setTimeout(() => setToast(null), 3000);
+          showToast(TRANSLATIONS[lang].restored_toast, "info");
         }
       } else {
         setState(newRecipeState());
@@ -178,7 +161,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
     };
     const id = setTimeout(init, 0);
     return () => clearTimeout(id);
-  }, [lang]);
+  }, [lang, showToast]);
 
   useEffect(() => {
     if (state) localStorage.setItem("brewery_recipes", JSON.stringify(state));
@@ -429,6 +412,11 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
     return `${yamlText.split("\n").length} l, ${yamlText.length} ch`;
   }, [yamlText]);
 
+  const randomExamples = useMemo(
+    () => (examplesOpen ? getRandomRecipes(5) : []),
+    [examplesOpen]
+  );
+
   const statusBadge: Record<Status, { cls: string; key: string }> = {
     waiting: { cls: "badge-secondary", key: "status_waiting" },
     generating: { cls: "badge-warning", key: "status_generating" },
@@ -470,7 +458,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
                 </button>
                 {examplesOpen && (
                   <div className="dropdown-menu right-0 top-full mt-1">
-                    {getRandomRecipes(5).map((ex, i) => (
+                    {randomExamples.map((ex, i) => (
                       <button
                         key={i}
                         type="button"
@@ -608,10 +596,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
             </label>
             <ChipInput
               data={ITEMS}
-              lines={String(form.ingredients ?? "")
-                .split("\n")
-                .map((l) => l.trim())
-                .filter(Boolean)}
+              lines={linesOf(String(form.ingredients ?? ""))}
               lang={lang}
               t={t}
               searchPlaceholder={t("item_search")}
@@ -760,10 +745,7 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
             <label className="label">{t("effect_label")}</label>
             <ChipInput
               data={EFFECTS}
-              lines={String(form.effects ?? "")
-                .split("\n")
-                .map((l) => l.trim())
-                .filter(Boolean)}
+              lines={linesOf(String(form.effects ?? ""))}
               lang={lang}
               t={t}
               searchPlaceholder={t("effect_search")}

@@ -2,11 +2,12 @@
 
 import { useMemo, useRef, useState } from "react";
 import type { ItemEntry } from "@/lib/recipes";
+import type { Lang } from "@/lib/i18n";
 
 interface ChipInputProps {
   data: ItemEntry[];
   lines: string[];
-  lang: "ru" | "en";
+  lang: Lang;
   t: (key: string) => string;
   searchPlaceholder: string;
   duplicateKey: string;
@@ -34,28 +35,28 @@ export default function ChipInput({
   const [extraValues, setExtraValues] = useState<string[]>(extras.map((e) => e.def));
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const { searchIndex, exactMap } = useMemo(() => {
+    const index = data.map((it) => ({
+      item: it,
+      hay: `${it.name} ${it.displayName} ${it.name_ru}`.toLowerCase(),
+    }));
+    const map = new Map<string, string>();
+    for (const it of data) {
+      for (const key of [it.name, it.displayName, it.name_ru]) {
+        if (key) map.set(key.toLowerCase(), it.name);
+      }
+    }
+    return { searchIndex: index, exactMap: map };
+  }, [data]);
+
   const results = useMemo(() => {
     const lower = query.toLowerCase().trim();
     if (!lower) return [];
-    return data
-      .filter(
-        (it) =>
-          it.name.toLowerCase().includes(lower) ||
-          it.displayName.toLowerCase().includes(lower) ||
-          (it.name_ru && it.name_ru.toLowerCase().includes(lower))
-      )
-      .slice(0, 200);
-  }, [query, data]);
+    return searchIndex.filter((entry) => entry.hay.includes(lower)).slice(0, 200).map((e) => e.item);
+  }, [query, searchIndex]);
 
   function lookupId(text: string): string {
-    const lower = text.toLowerCase().trim();
-    const found = data.find(
-      (it) =>
-        it.name.toLowerCase() === lower ||
-        it.displayName.toLowerCase() === lower ||
-        (it.name_ru && it.name_ru.toLowerCase() === lower)
-    );
-    return found ? found.name : text.toUpperCase().trim();
+    return exactMap.get(text.toLowerCase().trim()) ?? text.toUpperCase().trim();
   }
 
   function add(value?: string) {

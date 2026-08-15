@@ -123,11 +123,7 @@ export default async function LangLayout({
             </div>
           </div>
         </div>
-        <div className="footer-copy">
-          {lang === "ru"
-            ? "© VintlGvard — BreweryX Recipe Generator"
-            : "© VintlGvard — BreweryX Recipe Generator"}
-        </div>
+        <div className="footer-copy">© VintlGvard — BreweryX Recipe Generator</div>
       </footer>
     </>
   );

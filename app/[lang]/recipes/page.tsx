@@ -32,7 +32,7 @@ export default async function RecipesPage({ params }: { params: Promise<{ lang: 
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd(lang, items.map(i => ({ ...i, url: i.url })))) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd(lang, items)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(lang, [
         { name: lang === "ru" ? "Главная" : "Home", url: `/${lang}` },
         { name: lang === "ru" ? "Рецепты" : "Recipes", url: `/${lang}/recipes` },

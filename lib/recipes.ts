@@ -43,8 +43,15 @@ export const EFFECTS = data.effects as ItemEntry[];
 export const ALL_RECIPES = recipesData as Array<Record<string, unknown>>;
 
 export function getRandomRecipes(count: number): Array<Record<string, unknown>> {
-  const shuffled = [...ALL_RECIPES].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
+  const pool = [...ALL_RECIPES];
+  const result: Array<Record<string, unknown>> = [];
+  const n = Math.min(count, pool.length);
+  for (let i = 0; i < n; i++) {
+    const j = i + Math.floor(Math.random() * (pool.length - i));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+    result.push(pool[i]);
+  }
+  return result;
 }
 
 const KNOWN_ITEMS = new Set(ITEMS.map((item) => item.name));
@@ -109,7 +116,7 @@ function quoted(text: string): string {
   return SQ_OPEN + text + SQ_CLOSE;
 }
 
-function linesOf(text: string): string[] {
+export function linesOf(text: string): string[] {
   return text
     .split("\n")
     .map((line) => line.trim())
