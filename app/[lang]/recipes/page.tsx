@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/lib/content";
 import { LOCALES } from "@/lib/content";
 import { ALL_RECIPES, getDisplayName } from "@/lib/recipes";
-import { itemListJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { itemListJsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
@@ -72,11 +72,24 @@ export default async function RecipesPage({ params }: { params: Promise<{ lang: 
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd(lang, items)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd(lang, items, `/${lang}/recipes`)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(lang, [
         { name: lang === "ru" ? "Главная" : "Home", url: `/${lang}` },
         { name: lang === "ru" ? "Рецепты" : "Recipes", url: `/${lang}/recipes` },
-      ])) }} />
+      ], `/${lang}/recipes`)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(lang === "ru" ? [
+        { q: "Как использовать готовые рецепты BreweryX?", a: "Скопируйте YAML-конфиг рецепта в файл plugins/BreweryX/recipes.yml (или добавьте в конец, если файл уже есть) и выполните команду перезагрузки плагина. Подробнее — в официальном руководстве." },
+        { q: "Можно ли изменить готовые рецепты?", a: "Да, все рецепты можно открыть в генераторе и изменить любые параметры: ингредиенты, время варки, сложность, эффекты и т.д." },
+        { q: "Какие типы напитков есть в каталоге?", a: "В каталоге представлены пиво, виски, медовуха, зелья, ром, джин, сидр, стаут, портер, IPA, лагер, эль и многие другие типы напитков." },
+        { q: "Совместимы ли рецепты с разными версиями Minecraft?", a: "Да, все рецепты используют стандартный формат BreweryX и совместимы со всеми поддерживаемыми версиями Minecraft (1.8–1.21+)." },
+        { q: "Где найти больше рецептов BreweryX?", a: "Вы можете создать собственные рецепты с помощью нашего генератора или найти готовые рецепты в официальном репозитории BreweryX на GitHub." },
+      ] : [
+        { q: "How to use ready BreweryX recipes?", a: "Copy the YAML recipe config into the plugins/BreweryX/recipes.yml file (or append it if the file already exists) and run the plugin reload command. See the official guide for details." },
+        { q: "Can I modify ready recipes?", a: "Yes, all recipes can be opened in the generator and any parameters can be changed: ingredients, cooking time, difficulty, effects, etc." },
+        { q: "What types of drinks are in the catalog?", a: "The catalog includes beer, whiskey, mead, potions, rum, gin, cider, stout, porter, IPA, lager, ale and many other types of drinks." },
+        { q: "Are recipes compatible with different Minecraft versions?", a: "Yes, all recipes use the standard BreweryX format and are compatible with all supported Minecraft versions (1.8–1.21+)." },
+        { q: "Where to find more BreweryX recipes?", a: "You can create your own recipes using our generator or find ready recipes in the official BreweryX repository on GitHub." },
+      ], `/${lang}/recipes`)) }} />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <nav className="breadcrumb slide-in">

@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import type { Locale } from "@/lib/content";
 import { LOCALES, GUIDE } from "@/lib/content";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, articleJsonLd, faqJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
@@ -69,7 +69,26 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(lang, [
         { name: lang === "ru" ? "Главная" : "Home", url: `/${lang}` },
         { name: lang === "ru" ? "Справочник" : "Guide", url: `/${lang}/guide` },
-      ])) }} />
+      ], `/${lang}/guide`)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(lang, {
+        title: g.meta.title,
+        description: g.meta.description,
+        url: `/${lang}/guide`,
+        sections: g.sections.map(s => s.heading),
+      })) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(lang === "ru" ? [
+        { q: "Что такое BreweryX?", a: "BreweryX — это плагин для Minecraft (Spigot, Paper и Folia), который добавляет в игру полноценное пивоварение: брожение ингредиентов в котле, дистилляцию крепких напитков, выдержку в бочках из разных пород дерева и употребление готовых напитков с эффектами и опьянением." },
+        { q: "Какой формат у рецептов BreweryX?", a: "Рецепт — это YAML-запись с ключами name, lore, ingredients, cookingtime, distillruns, wood, age, color, difficulty и опциональными alcohol, effects, customModelData и командами." },
+        { q: "Какие ингредиенты можно использовать?", a: "Любые ванильные предметы Minecraft в формате МАТЕРИАЛ/КОЛИЧЕСТВО, например WHEAT/6 или WATER_BUCKET/1, а также предметы с CustomModelData из плагинов вроде ItemsAdder." },
+        { q: "Что значат цветовые коды вроде &6?", a: "Это стандартные коды форматирования Minecraft: &6 — золотой, &c — красный, &l — жирный и так далее. Генератор поддерживает их в названиях, описаниях и надписях, а также HEX-цвета для новых версий." },
+        { q: "Как работает качество напитка в BreweryX?", a: "Качество (плохое/среднее/хорошее) зависит от точности варки: чем выше difficulty, тем сложнее сварить хороший напиток. Можно задать разные надписи, эффекты и CustomModelData для каждого уровня качества." },
+      ] : [
+        { q: "What is BreweryX?", a: "BreweryX is a Minecraft plugin (Spigot, Paper, and Folia) that adds full brewing to the game: fermenting ingredients in a cauldron, distilling strong spirits, aging in barrels made from different wood types, and consuming finished drinks with effects and intoxication." },
+        { q: "What is the format for BreweryX recipes?", a: "A recipe is a YAML entry with keys name, lore, ingredients, cookingtime, distillruns, wood, age, color, difficulty and optional alcohol, effects, customModelData and commands." },
+        { q: "Which ingredients can I use?", a: "Any vanilla Minecraft item in the MATERIAL/AMOUNT format, e.g. WHEAT/6 or WATER_BUCKET/1, as well as items with CustomModelData from plugins like ItemsAdder." },
+        { q: "What do color codes like &6 mean?", a: "These are standard Minecraft formatting codes: &6 is gold, &c is red, &l is bold, and so on. The generator supports them in names, lore, and display names, plus HEX colors for newer versions." },
+        { q: "How does drink quality work in BreweryX?", a: "Quality (poor/average/good) depends on brewing precision: the higher the difficulty, the harder it is to make a good drink. You can set different display names, lore, effects, and CustomModelData for each quality level." },
+      ], `/${lang}/guide`)) }} />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <nav className="breadcrumb slide-in">

@@ -62,21 +62,23 @@ export default function TopBar({ lang }: { lang: string }) {
   }, []);
 
   return (
-    <nav className="topbar">
+    <nav className="topbar" aria-label={lang === "ru" ? "Основная навигация" : "Main navigation"}>
       <div className="topbar-inner">
-        <Link href={`/${lang}`} className="topbar-brand">
+        <Link href={`/${lang}`} className="topbar-brand" aria-label="BreweryX Recipe Generator">
           BreweryX<span className="topbar-brand-sub">Recipe Generator</span>
         </Link>
         <div className="topbar-actions">
           <Link
             href={`/${lang}/guide`}
             className="topbar-btn topbar-btn-nav"
+            aria-label={lang === "ru" ? "Справочник BreweryX" : "BreweryX Guide"}
           >
             {lang === "ru" ? "Справочник" : "Guide"}
           </Link>
           <Link
             href={`/${lang}/recipes`}
             className="topbar-btn topbar-btn-nav"
+            aria-label={lang === "ru" ? "Готовые рецепты BreweryX" : "Ready BreweryX Recipes"}
           >
             {lang === "ru" ? "Рецепты" : "Recipes"}
           </Link>
@@ -85,6 +87,7 @@ export default function TopBar({ lang }: { lang: string }) {
             href={lang === "ru" ? "/en" : "/ru"}
             className="topbar-btn topbar-btn-pill"
             title={lang === "ru" ? "Switch to English" : "Переключить на русский"}
+            aria-label={lang === "ru" ? "Switch to English" : "Переключить на русский"}
           >
             {lang === "ru" ? "EN" : "RU"}
           </Link>
@@ -92,6 +95,7 @@ export default function TopBar({ lang }: { lang: string }) {
             type="button"
             className="topbar-btn topbar-btn-pill"
             title={lang === "ru" ? "Сменить тему" : "Toggle theme"}
+            aria-label={lang === "ru" ? "Сменить тему" : "Toggle theme"}
             onClick={toggleTheme}
           >
             {current === "dark" ? "Light" : "Dark"}

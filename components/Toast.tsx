@@ -18,7 +18,9 @@ export default function Toast({ toast }: ToastProps) {
   if (!toast || !mounted) return null;
 
   return createPortal(
-    <div className={`toast-box toast-${toast.type}`}>{toast.msg}</div>,
+    <div className={`toast-box toast-${toast.type}`} role="alert" aria-live="polite">
+      {toast.msg}
+    </div>,
     document.body
   );
 }

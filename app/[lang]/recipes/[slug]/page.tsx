@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import type { Locale } from "@/lib/content";
 import { LOCALES, RECIPES_CONTENT } from "@/lib/content";
 import { ALL_RECIPES, COLORS, WOOD_TYPES, generateYaml, formFromRecord, getDisplayName, getItemLabel } from "@/lib/recipes";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, productJsonLd } from "@/lib/seo";
 
 function getRecipeColor(slug: string): string {
   if (slug.includes("potion")) return "err";
@@ -146,7 +146,16 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
         { name: lang === "ru" ? "Главная" : "Home", url: `/${lang}` },
         { name: lang === "ru" ? "Рецепты" : "Recipes", url: `/${lang}/recipes` },
         { name: String(displayName), url: `/${lang}/recipes/${slug}` },
-      ])) }} />
+      ], `/${lang}/recipes/${slug}`)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd(lang, {
+        name: displayName,
+        description: content?.meta.description || `${displayName} — ${lang === "ru" ? "рецепт BreweryX" : "BreweryX recipe"}`,
+        url: `/${lang}/recipes/${slug}`,
+        ingredients,
+        cookingTime: Number(ex.cookingtime) || 0,
+        difficulty: Number(ex.difficulty) || 0,
+        alcohol: Number(ex.alcohol) || 0,
+      })) }} />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <nav className="breadcrumb slide-in">
@@ -233,6 +242,46 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
             {lang === "ru" ? "Все рецепты" : "All recipes"}
           </Link>
         </div>
+
+        {(() => {
+          const currentColor = String(ex.color ?? "").toLowerCase();
+          const related = ALL_RECIPES
+            .filter((r) => String(r.recipe_id) !== slug)
+            .filter((r) => String(r.color ?? "").toLowerCase() === currentColor)
+            .slice(0, 4);
+          if (related.length === 0) {
+            const others = ALL_RECIPES
+              .filter((r) => String(r.recipe_id) !== slug)
+              .slice(0, 4);
+            if (others.length === 0) return null;
+            return (
+              <section className="mt-12 fadeUp stagger-6" aria-label={lang === "ru" ? "Похожие рецепты" : "Related recipes"}>
+                <h2 className="section-label">{lang === "ru" ? "Похожие рецепты" : "Related Recipes"}</h2>
+                <div className="example-grid">
+                  {others.map((r) => (
+                    <Link key={String(r.recipe_id)} href={`/${lang}/recipes/${String(r.recipe_id)}`} className="example-card">
+                      <div className="example-card-name">{getDisplayName(r, lang)}</div>
+                      <div className="example-card-link">{lang === "ru" ? "Открыть →" : "Open →"}</div>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            );
+          }
+          return (
+            <section className="mt-12 fadeUp stagger-6" aria-label={lang === "ru" ? "Похожие рецепты" : "Related recipes"}>
+              <h2 className="section-label">{lang === "ru" ? "Похожие рецепты" : "Related Recipes"}</h2>
+              <div className="example-grid">
+                {related.map((r) => (
+                  <Link key={String(r.recipe_id)} href={`/${lang}/recipes/${String(r.recipe_id)}`} className="example-card">
+                    <div className="example-card-name">{getDisplayName(r, lang)}</div>
+                    <div className="example-card-link">{lang === "ru" ? "Открыть →" : "Open →"}</div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          );
+        })()}
       </div>
     </>
   );

@@ -36,6 +36,7 @@ export default function RecipePanelHeader({
           type="button"
           className="btn btn-outline btn-sm"
           onClick={() => setImportOpen(true)}
+          aria-label={t("import_btn")}
         >
           {t("import_btn")}
         </button>
@@ -44,16 +45,18 @@ export default function RecipePanelHeader({
             type="button"
             className="btn btn-outline btn-sm"
             onClick={() => setExamplesOpen(!examplesOpen)}
+            aria-label={t("examples_btn")}
           >
             {t("examples_btn")}
           </button>
           {examplesOpen && (
-            <div className="dropdown-menu right-0 top-full mt-1">
+            <div className="dropdown-menu right-0 top-full mt-1" role="menu">
               {randomExamples.map((ex, i) => (
                 <button
                   key={i}
                   type="button"
                   className="dropdown-item"
+                  role="menuitem"
                   onClick={() => {
                     setExamplesOpen(false);
                     const form = formFromRecord(ex);
