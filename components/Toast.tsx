@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import type { ToastType } from "./types";
 
 interface ToastProps {
@@ -7,6 +9,16 @@ interface ToastProps {
 }
 
 export default function Toast({ toast }: ToastProps) {
-  if (!toast) return null;
-  return <div className={`toast-box toast-${toast.type}`}>{toast.msg}</div>;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!toast || !mounted) return null;
+
+  return createPortal(
+    <div className={`toast-box toast-${toast.type}`}>{toast.msg}</div>,
+    document.body
+  );
 }
