@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import type { Locale } from "@/lib/content";
 import { LOCALES, LANDING } from "@/lib/content";
 import LangSetter from "./lang-setter";

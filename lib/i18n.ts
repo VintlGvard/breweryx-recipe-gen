@@ -110,6 +110,7 @@ export const TRANSLATIONS: Record<Lang, Record<string, string>> = {
     q_cmd: "customModelData: 100/200/300 via /",
     q_effects:
       "effects: ranges SPEED/1-3/10-30 (first value = bad quality, second = good quality)",
+    loading: "Loading...",
   },
   ru: {
     subtitle: "Создавайте конфигурации рецептов для плагина BreweryX",
@@ -218,6 +219,7 @@ export const TRANSLATIONS: Record<Lang, Record<string, string>> = {
     q_cmd: "customModelData: 100/200/300 через /",
     q_effects:
       "effects: диапазоны SPEED/1-3/10-30 (первое значение — для плохого качества, второе — для хорошего)",
+    loading: "Загрузка...",
   },
 };
 

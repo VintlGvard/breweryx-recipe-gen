@@ -34,7 +34,7 @@ Writing BreweryX recipes by hand means fighting YAML indentation, memorizing ite
 | 🎨 **Full color support** | `&` color codes guide, named colors, HEX / RGB picker with live swatch |
 | ↩️ **YAML import/export** | Paste an existing recipe to populate the form; copy to clipboard or download `.yml` |
 | ✅ **Validation & warnings** | Required fields, format checks, unknown-item warnings — before anything breaks in game |
-| 🌐 **Localized routes** | Bilingual UI (EN/RU) with App Router `/{lang}` routes and automatic `/ru` redirect |
+| 🌐 **Localized routes** | Bilingual UI (EN/RU) with App Router `/{lang}` routes and `Accept-Language` based redirect (defaults to `/en`) |
 | 🌗 **Light & dark themes** | Theme preference stored in a cookie (read after hydration); localStorage used as fallback |
 | 💾 **Auto-save** | Recipes persist in the browser between sessions via localStorage |
 | 📋 **Recipe catalog** | Browse pre-made recipes at `/{lang}/recipes`; open any recipe directly in the generator |
@@ -42,6 +42,9 @@ Writing BreweryX recipes by hand means fighting YAML indentation, memorizing ite
 | 🔎 **SEO** | Per-page metadata, Open Graph, Twitter Cards, JSON-LD (WebSite, HowTo, FAQ, BreadcrumbList, ItemList) |
 | 🗺 **Sitemap & robots** | Auto-generated `sitemap.xml` and `robots.txt` for both locales |
 | 📱 **PWA manifest** | Web app manifest with icons for home-screen install |
+| ⌨️ **Hotkeys** | `Ctrl+Enter` — generate YAML, `Esc` — close import modal |
+| 🔔 **Toast notifications** | Feedback on actions: copy, import, reset, errors |
+| 🧪 **Unit tests** | Vitest coverage for YAML generation, validation, and data exports |
 | 🚀 **No backend** | No API routes, no server-side logic — all data processing happens in the browser |
 
 ## 🚀 Quick Start
@@ -58,15 +61,17 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) — you will be redirected to `/ru` and can switch to English from the top bar.
+Open [http://localhost:3000](http://localhost:3000) — you will be redirected to `/en` and can switch to Russian from the top bar.
 
 ### Available scripts
 
 ```bash
-npm run dev      # start development server
-npm run lint     # run ESLint
-npm run build    # production build
-npm start        # start production server
+npm run dev          # start development server
+npm run lint         # run ESLint
+npm run build        # production build
+npm start            # start production server
+npm run test         # run Vitest tests
+npm run test:watch   # run Vitest in watch mode
 ```
 
 ### Environment variable
@@ -124,15 +129,18 @@ my_beer:
 ```
 breweryx-recipe-gen/
 ├── app/
-│   ├── page.tsx                # root redirect → /ru
+│   ├── page.tsx                # root redirect based on Accept-Language → /en or /ru
 │   ├── layout.tsx              # root layout: global CSS, viewport, WebApplication JSON-LD
+│   ├── not-found.tsx           # global 404 page
 │   ├── globals.css             # design system (light/dark themes)
 │   ├── robots.ts               # robots.txt (uses NEXT_PUBLIC_SITE_URL)
 │   ├── sitemap.ts              # sitemap.xml (main routes and predefined recipe slugs for both locales)
 │   ├── manifest.ts             # PWA web app manifest
 │   └── [lang]/
-│       ├── layout.tsx          # locale layout: per-page SEO metadata, TopBar, footer
+│       ├── layout.tsx          # locale layout: per-page SEO metadata, TopBar, footer, LangSetter
 │       ├── page.tsx            # landing page: hero, intro, FAQ, embedded generator
+│       ├── not-found.tsx       # localized 404 for unknown recipes
+│       ├── loading.tsx         # skeleton loading state
 │       ├── lang-setter.tsx     # sets document.documentElement.lang after hydration
 │       ├── guide/
 │       │   └── page.tsx        # full BreweryX recipe-format reference
@@ -141,14 +149,24 @@ breweryx-recipe-gen/
 │           └── [slug]/
 │               └── page.tsx    # individual recipe detail page with YAML preview
 ├── components/
-│   ├── RecipeApp.tsx           # main generator — client component (form, preview, import/export)
+│   ├── RecipeApp.tsx           # main generator orchestrator (state, handlers, layout)
+│   ├── RecipeFormFields.tsx    # recipe form fields (basic, ingredients, effects, color, extra params)
+│   ├── RecipePanelHeader.tsx   # panel header with Import/Examples buttons
+│   ├── RecipeSelector.tsx      # recipe selector dropdown with add/remove buttons
+│   ├── YamlPreviewPanel.tsx    # YAML preview with Copy/Download actions
+│   ├── ImportModal.tsx         # YAML import modal dialog
+│   ├── Toast.tsx               # toast notification component
 │   ├── TopBar.tsx              # top navigation bar with language/theme switcher
-│   └── ChipInput.tsx           # searchable chip input for items and effects
+│   ├── ChipInput.tsx           # searchable chip input for items and effects
+│   └── types.ts                # shared types (Status, ToastType, RecipesState)
 ├── lib/
 │   ├── content.ts              # typed i18n content (landing, guide, recipe pages, YAML examples)
-│   ├── i18n.ts                 # UI translation strings (EN/RU)
+│   ├── i18n.ts                 # UI translation strings (EN/RU) + color map
 │   ├── recipes.ts              # YAML generation, validation, import, item/effect/color data
-│   └── seo.ts                  # JSON-LD builders (WebSite, HowTo, FAQ, BreadcrumbList, ItemList)
+│   ├── seo.ts                  # JSON-LD builders (WebSite, HowTo, FAQ, BreadcrumbList, ItemList)
+│   └── site.ts                 # SITE_URL resolution from env
+├── __tests__/
+│   └── recipes.test.ts         # Vitest unit tests for YAML generation and validation
 ├── public/
 │   ├── icon-192.png
 │   ├── icon-512.png
@@ -156,6 +174,7 @@ breweryx-recipe-gen/
 │   └── og.png
 ├── data.json                   # Minecraft items, potion effects, colors, wood types
 ├── recipes.json                # pre-made recipe data (displayed in catalog and detail pages)
+├── vitest.config.ts            # Vitest configuration
 ├── postcss.config.mjs          # PostCSS / Tailwind CSS 4 plugin setup
 ├── eslint.config.mjs           # ESLint flat config
 ├── next.config.ts
@@ -165,7 +184,7 @@ breweryx-recipe-gen/
 
 ### How localization works
 
-- `app/page.tsx` — always redirects to `/ru`.
+- `app/page.tsx` — redirects to `/en` or `/ru` based on `Accept-Language`, defaults to `/en`.
 - `app/[lang]/layout.tsx` — generates per-locale metadata (`generateMetadata`) and renders the `LangSetter` component.
 - `app/[lang]/page.tsx` — validates the `lang` param against `["ru", "en"]`; returns 404 for unknown locales.
 - `app/[lang]/lang-setter.tsx` — client component that sets `document.documentElement.lang` after hydration so the browser reflects the active locale.
@@ -181,6 +200,7 @@ breweryx-recipe-gen/
 | **YAML** | [js-yaml](https://github.com/nodeca/js-yaml) |
 | **Data** | `data.json` (items, colors, wood_types, effects) + `recipes.json` (pre-made recipes); examples in `lib/content.ts` |
 | **Storage** | localStorage (recipes) + cookie (theme, with localStorage fallback) |
+| **Testing** | [Vitest](https://vitest.dev) — unit tests for YAML generation and validation |
 
 ## ❓ FAQ
 
