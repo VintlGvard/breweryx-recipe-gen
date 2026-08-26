@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { webApplicationJsonLd } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -38,10 +37,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webApplicationJsonLd()) }}
-        />
         {children}
       </body>
     </html>

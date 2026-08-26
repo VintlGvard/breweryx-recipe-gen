@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { Locale } from "@/lib/content";
 import { LOCALES } from "@/lib/content";
 import { ALL_RECIPES, getDisplayName } from "@/lib/recipes";
@@ -9,14 +10,53 @@ export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang = rawLang as Locale;
+  if (!LOCALES.includes(lang)) return {};
+  
+  const title = lang === "ru" ? "Готовые рецепты BreweryX — YAML-конфиги" : "Ready-Made BreweryX Recipes — YAML Configs";
+  const description = lang === "ru"
+    ? "Каталог готовых YAML-рецептов для плагина BreweryX в Minecraft: пиво, виски, медовуха, зелья. Скачайте и используйте на своём сервере."
+    : "Catalog of ready YAML recipes for the BreweryX Minecraft plugin: beer, whiskey, mead, potions. Download and use on your server.";
+  
   return {
-    title: lang === "ru" ? "Готовые рецепты BreweryX — YAML-конфиги" : "Ready-Made BreweryX Recipes — YAML Configs",
-    description: lang === "ru"
-      ? "Каталог готовых YAML-рецептов для плагина BreweryX в Minecraft: пиво, виски, медовуха, зелья. Скачайте и используйте на своём сервере."
-      : "Catalog of ready YAML recipes for the BreweryX Minecraft plugin: beer, whiskey, mead, potions. Download and use on your server.",
+    title,
+    description,
+    keywords: lang === "ru"
+      ? ["рецепты breweryx", "готовые рецепты breweryx", "breweryx yaml", "рецепты пива майнкрафт", "breweryx рецепты скачать"]
+      : ["breweryx recipes", "ready breweryx recipes", "breweryx yaml", "minecraft beer recipes", "breweryx recipes download"],
+    alternates: {
+      canonical: `/${lang}/recipes`,
+      languages: {
+        ru: "/ru/recipes",
+        en: "/en/recipes",
+        "x-default": "/ru/recipes",
+      },
+    },
+    openGraph: {
+      type: "website",
+      url: `/${lang}/recipes`,
+      siteName: "BreweryX Recipe Generator",
+      title,
+      description,
+      locale: lang === "ru" ? "ru_RU" : "en_US",
+      alternateLocale: [lang === "ru" ? "en_US" : "ru_RU"],
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/og.png"],
+    },
   };
 }
 

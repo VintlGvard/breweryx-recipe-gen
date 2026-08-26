@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { Locale } from "@/lib/content";
 import { LOCALES, GUIDE } from "@/lib/content";
 import { breadcrumbJsonLd } from "@/lib/seo";
@@ -8,14 +9,46 @@ export function generateStaticParams() {
   return LOCALES.map((lang) => ({ lang }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang = rawLang as Locale;
+  if (!LOCALES.includes(lang)) return {};
   const g = GUIDE[lang];
   return {
     title: g.meta.title,
     description: g.meta.description,
     keywords: g.meta.keywords,
+    alternates: {
+      canonical: `/${lang}/guide`,
+      languages: {
+        ru: "/ru/guide",
+        en: "/en/guide",
+        "x-default": "/ru/guide",
+      },
+    },
+    openGraph: {
+      type: "website",
+      url: `/${lang}/guide`,
+      siteName: "BreweryX Recipe Generator",
+      title: g.meta.title,
+      description: g.meta.description,
+      locale: lang === "ru" ? "ru_RU" : "en_US",
+      alternateLocale: [lang === "ru" ? "en_US" : "ru_RU"],
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: g.meta.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: g.meta.title,
+      description: g.meta.description,
+      images: ["/og.png"],
+    },
   };
 }
 

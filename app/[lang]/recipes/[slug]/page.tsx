@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { Locale } from "@/lib/content";
 import { LOCALES, RECIPES_CONTENT } from "@/lib/content";
 import { ALL_RECIPES, COLORS, WOOD_TYPES, generateYaml, formFromRecord, getDisplayName, getItemLabel } from "@/lib/recipes";
@@ -17,15 +18,48 @@ export function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string; slug: string }> }): Promise<Metadata> {
   const { lang: rawLang, slug } = await params;
   const lang = rawLang as Locale;
+  if (!LOCALES.includes(lang)) return {};
   const content = RECIPES_CONTENT[lang]?.[slug];
   if (!content) return {};
+  
   return {
     title: content.meta.title,
     description: content.meta.description,
     keywords: content.meta.keywords,
+    alternates: {
+      canonical: `/${lang}/recipes/${slug}`,
+      languages: {
+        ru: `/ru/recipes/${slug}`,
+        en: `/en/recipes/${slug}`,
+        "x-default": `/ru/recipes/${slug}`,
+      },
+    },
+    openGraph: {
+      type: "website",
+      url: `/${lang}/recipes/${slug}`,
+      siteName: "BreweryX Recipe Generator",
+      title: content.meta.title,
+      description: content.meta.description,
+      locale: lang === "ru" ? "ru_RU" : "en_US",
+      alternateLocale: [lang === "ru" ? "en_US" : "ru_RU"],
+      images: [
+        {
+          url: "/og.png",
+          width: 1200,
+          height: 630,
+          alt: content.meta.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: content.meta.title,
+      description: content.meta.description,
+      images: ["/og.png"],
+    },
   };
 }
 

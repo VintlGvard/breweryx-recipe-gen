@@ -12,22 +12,19 @@ export function webSiteJsonLd(locale: Locale) {
         ? "Бесплатный онлайн-генератор YAML-рецептов для плагина BreweryX (Minecraft)."
         : "Free online YAML recipe generator for the BreweryX Minecraft plugin.",
     inLanguage: locale === "ru" ? "ru" : "en",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/${locale}/recipes?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
-export function webApplicationJsonLd() {
+export function webApplicationJsonLd(locale?: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "BreweryX Recipe Generator",
     url: SITE_URL,
     description:
-      "Онлайн-генератор YAML-рецептов для плагина BreweryX (Minecraft).",
+      locale === "en"
+        ? "Online YAML recipe generator for the BreweryX Minecraft plugin."
+        : "Онлайн-генератор YAML-рецептов для плагина BreweryX (Minecraft).",
     applicationCategory: "UtilityApplication",
     operatingSystem: "Any",
     offers: {
@@ -35,7 +32,7 @@ export function webApplicationJsonLd() {
       price: "0",
       priceCurrency: "USD",
     },
-    inLanguage: ["ru", "en"],
+    inLanguage: locale ? [locale] : ["ru", "en"],
   };
 }
 
