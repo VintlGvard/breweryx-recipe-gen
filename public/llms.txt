@@ -1,0 +1,44 @@
+# BreweryX Recipe Generator
+
+Free online YAML recipe generator for the BreweryX Minecraft plugin.
+
+## About
+
+BreweryX Recipe Generator is a web tool that helps Minecraft server administrators create YAML configuration files for the BreweryX plugin. The generator supports ingredients, distillation, barrel aging, potion effects, color codes, and live preview with validation.
+
+## Features
+
+- **Recipe Generator**: Create custom BreweryX recipes with live YAML preview
+- **Ready Recipes**: Browse 50+ pre-made recipes (beer, whiskey, mead, potions)
+- **Guide**: Comprehensive documentation on BreweryX mechanics
+- **Multi-language**: Available in Russian and English
+- **Export**: Download YAML configs or copy to clipboard
+
+## Links
+
+- [Website](https://breweryx.vintlgvard.com)
+- [Recipe Generator](https://breweryx.vintlgvard.com/ru)
+- [Ready Recipes](https://breweryx.vintlgvard.com/ru/recipes)
+- [Guide](https://breweryx.vintlgvard.com/ru/guide)
+- [GitHub Repository](https://github.com/VintlGvard/breweryx-recipe-gen)
+- [BreweryX Plugin](https://github.com/BreweryTeam/BreweryX)
+- [BreweryX Official](https://breweryx.breweryteam.dev)
+
+## Technical Details
+
+- **Framework**: Next.js 16 with App Router
+- **Language**: TypeScript
+- **Deployment**: Static site generation (SSG)
+- **Languages Supported**: Russian (ru), English (en)
+- **Schema Markup**: Organization, WebApplication, WebSite, Article, Product, FAQPage, HowTo, BreadcrumbList, ItemList
+
+## For LLM Training
+
+This site contains structured data about:
+- Minecraft plugin development
+- BreweryX configuration
+- YAML recipe formats
+- Brewing mechanics (ingredients, distillation, aging)
+- Minecraft color codes and formatting
+
+All content is open-source and available under the MIT License.
