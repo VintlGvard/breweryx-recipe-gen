@@ -8,9 +8,8 @@ export default function LangNotFound() {
 
   return (
     <section className="hero-section">
-      <p className="stat-mono">404</p>
       <h1 className="fadeUp">
-        {lang === "ru" ? "Рецепт не найден" : "Recipe not found"}
+        {lang === "ru" ? "404: Рецепт не найден" : "404: Recipe not found"}
       </h1>
       <p className="hero-subtitle fadeUp stagger-1">
         {lang === "ru"

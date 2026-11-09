@@ -94,7 +94,7 @@ export default async function RecipesPage({ params }: { params: Promise<{ lang: 
       <div className="max-w-6xl mx-auto px-4 py-8">
         <nav className="breadcrumb slide-in">
           <Link href={`/${lang}`}>{lang === "ru" ? "Главная" : "Home"}</Link>
-          <span className="sep">→</span>
+          <span className="sep">/</span>
           <span>{lang === "ru" ? "Рецепты" : "Recipes"}</span>
         </nav>
 
@@ -119,7 +119,7 @@ export default async function RecipesPage({ params }: { params: Promise<{ lang: 
               >
                 <div className="example-card-name">{getDisplayName(ex, lang, id)}</div>
                 <div className="example-card-link">
-                  {lang === "ru" ? "Открыть →" : "Open →"}
+                  {lang === "ru" ? "Открыть" : "Open"}
                 </div>
               </Link>
             );

@@ -3,10 +3,9 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <section className="hero-section">
-      <p className="stat-mono">404</p>
-      <h1 className="fadeUp">Страница не найдена · Page not found</h1>
+      <h1 className="fadeUp">404: Страница не найдена / Page not found</h1>
       <p className="hero-subtitle fadeUp stagger-1">
-        Такой страницы не существует. · This page does not exist.
+        Такой страницы не существует. This page does not exist.
       </p>
       <div className="hero-cta fadeUp stagger-2">
         <Link href="/ru" className="btn btn-primary btn-lg">

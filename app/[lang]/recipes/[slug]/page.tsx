@@ -184,9 +184,9 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
       <div className="max-w-6xl mx-auto px-4 py-8">
         <nav className="breadcrumb slide-in">
           <Link href={`/${lang}`}>{lang === "ru" ? "Главная" : "Home"}</Link>
-          <span className="sep">→</span>
+          <span className="sep">/</span>
           <Link href={`/${lang}/recipes`}>{lang === "ru" ? "Рецепты" : "Recipes"}</Link>
-          <span className="sep">→</span>
+          <span className="sep">/</span>
           <span>{displayName}</span>
         </nav>
 
@@ -285,7 +285,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
                   {others.map((r) => (
                     <Link key={String(r.recipe_id)} href={`/${lang}/recipes/${String(r.recipe_id)}`} className="example-card">
                       <div className="example-card-name">{getDisplayName(r, lang)}</div>
-                      <div className="example-card-link">{lang === "ru" ? "Открыть →" : "Open →"}</div>
+                      <div className="example-card-link">{lang === "ru" ? "Открыть" : "Open"}</div>
                     </Link>
                   ))}
                 </div>
@@ -299,7 +299,7 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
                 {related.map((r) => (
                   <Link key={String(r.recipe_id)} href={`/${lang}/recipes/${String(r.recipe_id)}`} className="example-card">
                     <div className="example-card-name">{getDisplayName(r, lang)}</div>
-                    <div className="example-card-link">{lang === "ru" ? "Открыть →" : "Open →"}</div>
+                    <div className="example-card-link">{lang === "ru" ? "Открыть" : "Open"}</div>
                   </Link>
                 ))}
               </div>

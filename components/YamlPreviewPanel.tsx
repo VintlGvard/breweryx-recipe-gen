@@ -40,7 +40,6 @@ export default function YamlPreviewPanel({
     <div className="card lg:sticky lg:top-16">
       <div className="panel-head flex-wrap justify-between">
         <div className="flex items-baseline gap-2">
-          <span className="panel-index">02</span>
           <h2 className="text-base font-semibold">{t("yaml_title")}</h2>
         </div>
         <div className="flex items-center gap-3">

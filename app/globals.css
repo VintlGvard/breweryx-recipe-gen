@@ -1,6 +1,9 @@
+/* Hallmark · checked: 2026-11-09 · genre: modern-minimal (inferred) · built: the project · redesign: polish · v2.0.0 */
 @import "tailwindcss";
 
 :root {
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --modal-overlay: rgba(20, 19, 17, 0.55);
   --bg: #f2f1ed;
   --surface: #fbfaf8;
   --surface-2: #edece7;
@@ -55,6 +58,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 * {
@@ -64,10 +68,11 @@ html {
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -97,17 +102,14 @@ body {
 }
 
 .panel-index {
-  font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--accent);
-  letter-spacing: 0.08em;
 }
 
 .section-label {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--ink-soft);
   margin: 1.6rem 0 0.8rem;
   display: flex;
@@ -189,7 +191,7 @@ body {
   border: 1px solid var(--line-strong);
   background: var(--surface);
   color: var(--ink);
-  transition: all 0.18s var(--ease);
+  transition: color 0.18s var(--ease), background-color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
   white-space: nowrap;
   position: relative;
   overflow: hidden;
@@ -286,10 +288,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--ink-soft);
   transition: color 0.15s var(--ease);
 }
@@ -385,8 +385,7 @@ body {
   border: 1px solid var(--line-strong);
   padding: 0.12rem 0.45rem;
   border-radius: var(--radius);
-  font-family: var(--mono);
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   white-space: nowrap;
   transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
 }
@@ -463,8 +462,7 @@ body {
 }
 .sd-label {
   color: var(--ink-soft);
-  font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 .sd-empty {
   padding: 0.5rem 0.7rem;
@@ -501,7 +499,7 @@ body {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(20, 19, 17, 0.55);
+  background: var(--modal-overlay);
   z-index: 90;
   display: flex;
   align-items: center;
@@ -585,10 +583,8 @@ body {
   background: none;
   border: none;
   color: var(--ink);
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  font-weight: 500;
   width: 100%;
   text-align: left;
   padding: 0;
@@ -606,12 +602,10 @@ body {
   transform: rotate(90deg);
 }
 
-
 .stat-mono {
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--ink-soft);
-  letter-spacing: 0.05em;
 }
 
 .hero-section {
@@ -624,9 +618,10 @@ body {
   letter-spacing: -0.02em;
   line-height: 1.25;
   margin-bottom: 0.75rem;
+  text-wrap: balance;
 }
 .hero-section h1 .accent-dot {
-  color: var(--accent);
+  color: inherit;
 }
 .hero-subtitle {
   color: var(--ink-soft);
@@ -743,13 +738,13 @@ body {
 }
 .example-card-link {
   color: var(--accent);
-  font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
+  font-weight: 500;
   margin-top: 0.25rem;
-  transition: letter-spacing 0.15s var(--ease);
+  transition: opacity 0.15s var(--ease);
 }
 .example-card:hover .example-card-link {
-  letter-spacing: 0.04em;
+  opacity: 0.85;
 }
 
 .faq-item {
@@ -850,10 +845,8 @@ body {
   border-color: var(--line-strong);
 }
 .guide-toc-title {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--ink-soft);
   margin-bottom: 0.6rem;
 }
@@ -872,17 +865,17 @@ body {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  transition: color 0.12s var(--ease), padding-left 0.15s var(--ease);
+  transition: color 0.12s var(--ease), transform 0.15s var(--ease);
 }
 .guide-toc-list a::before {
-  content: "—";
+  content: "-";
   color: var(--line-strong);
   font-size: 0.7rem;
   transition: color 0.12s var(--ease);
 }
 .guide-toc-list a:hover {
   color: var(--accent);
-  padding-left: 0.2rem;
+  transform: translateX(3px);
 }
 .guide-toc-list a:hover::before {
   color: var(--accent);
@@ -1045,7 +1038,7 @@ body {
   border: 1px solid var(--line);
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s var(--ease);
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
   white-space: nowrap;
   user-select: none;
 }
@@ -1070,18 +1063,15 @@ body {
   border-color: var(--accent);
 }
 .topbar-btn-pill {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--accent);
   border-color: color-mix(in srgb, var(--accent) 30%, transparent);
   background: color-mix(in srgb, var(--accent) 6%, transparent);
 }
 .topbar-btn-pill:hover {
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-ink);
   border-color: var(--accent);
 }
 
@@ -1102,7 +1092,8 @@ body {
   bottom: 0;
   width: 3px;
   background: var(--accent);
-  transition: width 0.2s var(--ease);
+  transform-origin: left;
+  transition: transform 0.2s var(--ease);
 }
 .recipe-param-card:hover {
   border-color: var(--accent);
@@ -1110,13 +1101,11 @@ body {
   transform: translateY(-1px);
 }
 .recipe-param-card:hover::before {
-  width: 4px;
+  transform: scaleX(1.33);
 }
 .recipe-param-card-label {
-  font-size: 0.72rem;
-  font-family: var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--ink-soft);
   margin-bottom: 0.3rem;
 }
@@ -1247,4 +1236,15 @@ body {
 @keyframes skeletonPulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

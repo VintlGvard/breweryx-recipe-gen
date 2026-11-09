@@ -93,7 +93,7 @@ export default async function GuidePage({ params }: { params: Promise<{ lang: st
       <div className="max-w-6xl mx-auto px-4 py-8">
         <nav className="breadcrumb slide-in">
           <Link href={`/${lang}`}>{lang === "ru" ? "Главная" : "Home"}</Link>
-          <span className="sep">→</span>
+          <span className="sep">/</span>
           <span>{lang === "ru" ? "Справочник" : "Guide"}</span>
         </nav>
 

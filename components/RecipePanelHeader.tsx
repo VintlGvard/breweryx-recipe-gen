@@ -28,7 +28,6 @@ export default function RecipePanelHeader({
   return (
     <div className="panel-head flex-wrap justify-between">
       <div className="flex items-baseline gap-2">
-        <span className="panel-index">01</span>
         <h2 className="text-base font-semibold">{t("recipe_params")}</h2>
       </div>
       <div className="flex gap-2 relative">

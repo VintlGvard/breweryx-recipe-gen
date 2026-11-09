@@ -95,7 +95,7 @@ export default async function LangLayout({
             </div>
           </div>
         </div>
-        <div className="footer-copy">© VintlGvard — BreweryX Recipe Generator</div>
+        <div className="footer-copy">© VintlGvard. BreweryX Recipe Generator</div>
       </footer>
     </>
   );

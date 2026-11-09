@@ -70,9 +70,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       <main className="max-w-6xl mx-auto px-4">
         <section className="hero-section">
           <h1 className="fadeUp">
-            {c.heroH1.split("BreweryX").map((part, i) =>
-              i === 0 ? <span key={i}>{part}</span> : <span key={i}><span className="accent-dot">BreweryX</span>{part}</span>
-            )}
+            {c.heroH1}
           </h1>
           <p className="hero-subtitle fadeUp stagger-1">{c.heroSubtitle}</p>
           <div className="hero-cta fadeUp stagger-2">
@@ -137,7 +135,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
                   >
                     <div className="example-card-name">{getDisplayName(ex, lang, id)}</div>
                     <div className="example-card-link">
-                      {lang === "ru" ? "Открыть →" : "Open →"}
+                      {lang === "ru" ? "Открыть" : "Open"}
                     </div>
                   </Link>
                 );
@@ -156,7 +154,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
 
             <div className="mt-6 text-center">
               <Link href={`/${lang}/guide`} className="btn btn-outline">
-                {lang === "ru" ? "Полный справочник формата рецептов →" : "Full recipe format reference →"}
+                {lang === "ru" ? "Полный справочник формата рецептов" : "Full recipe format reference"}
               </Link>
             </div>
           </div>
