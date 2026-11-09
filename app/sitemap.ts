@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
   for (const lang of LOCALES) {
-    // Главная страница — обновляется чаще
     entries.push({
       url: `${SITE_URL}/${lang}`,
       lastModified: now,
@@ -22,7 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     });
 
-    // Справочник — обновляется редко
     entries.push({
       url: `${SITE_URL}/${lang}/guide`,
       lastModified: now,
@@ -36,7 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     });
 
-    // Каталог рецептов — обновляется средне
     entries.push({
       url: `${SITE_URL}/${lang}/recipes`,
       lastModified: now,
@@ -50,7 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     });
 
-    // Отдельные рецепты — обновляются редко
     for (const recipe of ALL_RECIPES) {
       const id = String(recipe.recipe_id);
       entries.push({

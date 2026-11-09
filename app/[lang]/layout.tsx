@@ -12,10 +12,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params;
   if (!LOCALES.includes(lang)) return {};
-  
-  // Базовые metadata для всех страниц внутри [lang]
-  // Page-specific metadata (title, description, OG, Twitter, canonical) 
-  // должны быть определены в каждой странице отдельно
+
   return {
     robots: {
       index: true,
