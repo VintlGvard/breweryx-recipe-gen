@@ -213,10 +213,20 @@ export function articleJsonLd(locale: Locale, article: {
     url: `${SITE_URL}${article.url}`,
     image: `${SITE_URL}/og.png`,
     author: {
+      "@type": "Person",
       "@id": `${SITE_URL}/#person`,
+      name: "VintlGvard",
+      url: "https://vintlgvard.com",
     },
     publisher: {
+      "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
+      name: "BreweryX Recipe Generator",
+      url: SITE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/icon-512.png`,
+      },
     },
     datePublished: "2024-01-01",
     dateModified: new Date().toISOString().split("T")[0],
@@ -225,23 +235,6 @@ export function articleJsonLd(locale: Locale, article: {
       "@id": `${SITE_URL}${article.url}`,
     },
     articleSection: article.sections.join(", "),
-    inLanguage: locale === "ru" ? "ru" : "en",
-  };
-}
-
-export function sitelinksSearchboxJsonLd(locale: Locale) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    url: SITE_URL,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/${locale}/recipes?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
     inLanguage: locale === "ru" ? "ru" : "en",
   };
 }

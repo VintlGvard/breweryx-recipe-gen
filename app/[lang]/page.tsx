@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import type { Locale } from "@/lib/content";
 import { LOCALES, LANDING } from "@/lib/content";
-import { faqJsonLd, howToJsonLd, webSiteJsonLd, sitelinksSearchboxJsonLd } from "@/lib/seo";
+import { faqJsonLd, howToJsonLd, webSiteJsonLd } from "@/lib/seo";
 import { ALL_RECIPES, getDisplayName } from "@/lib/recipes";
 import RecipeApp from "@/components/RecipeApp";
 
@@ -64,7 +64,6 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd(lang)) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(sitelinksSearchboxJsonLd(lang)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd(lang, c.howtoSteps, `/${lang}`)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(c.faq, `/${lang}`)) }} />
 

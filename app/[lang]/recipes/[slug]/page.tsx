@@ -22,13 +22,35 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   const { lang: rawLang, slug } = await params;
   const lang = rawLang as Locale;
   if (!LOCALES.includes(lang)) return {};
+
+  const ex = ALL_RECIPES.find((e) => String(e.recipe_id) === slug);
+  if (!ex) return {};
+
   const content = RECIPES_CONTENT[lang]?.[slug];
-  if (!content) return {};
+  const displayName = getDisplayName(ex, lang, slug);
+
+  const title = content?.meta.title ?? (
+    lang === "ru"
+      ? `Рецепт ${displayName} для BreweryX — YAML-конфиг`
+      : `${displayName} Recipe for BreweryX — YAML Config`
+  );
+
+  const description = content?.meta.description ?? (
+    lang === "ru"
+      ? `Готовый YAML-рецепт ${displayName} для плагина BreweryX в Minecraft: время варки ${ex.cookingtime} мин, сложность ${ex.difficulty}, алкоголь ${ex.alcohol}%.`
+      : `Ready YAML recipe for ${displayName} for the BreweryX Minecraft plugin: cooking time ${ex.cookingtime} min, difficulty ${ex.difficulty}, alcohol ${ex.alcohol}%.`
+  );
+
+  const keywords = content?.meta.keywords ?? (
+    lang === "ru"
+      ? [`рецепт ${displayName.toLowerCase()}`, "breweryx рецепт", "breweryx yaml", "minecraft пивоварение", slug]
+      : [`${displayName.toLowerCase()} recipe`, "breweryx recipe", "breweryx yaml", "minecraft brewing", slug]
+  );
   
   return {
-    title: content.meta.title,
-    description: content.meta.description,
-    keywords: content.meta.keywords,
+    title,
+    description,
+    keywords,
     alternates: {
       canonical: `/${lang}/recipes/${slug}`,
       languages: {
@@ -41,8 +63,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       type: "website",
       url: `/${lang}/recipes/${slug}`,
       siteName: "BreweryX Recipe Generator",
-      title: content.meta.title,
-      description: content.meta.description,
+      title,
+      description,
       locale: lang === "ru" ? "ru_RU" : "en_US",
       alternateLocale: [lang === "ru" ? "en_US" : "ru_RU"],
       images: [
@@ -50,14 +72,14 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
           url: "/og.png",
           width: 1200,
           height: 630,
-          alt: content.meta.title,
+          alt: title,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: content.meta.title,
-      description: content.meta.description,
+      title,
+      description,
       images: ["/og.png"],
     },
   };

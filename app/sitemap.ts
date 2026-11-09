@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
+      alternates: {
+        languages: {
+          ru: `${SITE_URL}/ru`,
+          en: `${SITE_URL}/en`,
+        },
+      },
     });
 
     // Справочник — обновляется редко
@@ -22,6 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
+      alternates: {
+        languages: {
+          ru: `${SITE_URL}/ru/guide`,
+          en: `${SITE_URL}/en/guide`,
+        },
+      },
     });
 
     // Каталог рецептов — обновляется средне
@@ -30,15 +42,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.8,
+      alternates: {
+        languages: {
+          ru: `${SITE_URL}/ru/recipes`,
+          en: `${SITE_URL}/en/recipes`,
+        },
+      },
     });
 
     // Отдельные рецепты — обновляются редко
     for (const recipe of ALL_RECIPES) {
+      const id = String(recipe.recipe_id);
       entries.push({
-        url: `${SITE_URL}/${lang}/recipes/${String(recipe.recipe_id)}`,
+        url: `${SITE_URL}/${lang}/recipes/${id}`,
         lastModified: now,
         changeFrequency: "yearly",
         priority: 0.7,
+        alternates: {
+          languages: {
+            ru: `${SITE_URL}/ru/recipes/${id}`,
+            en: `${SITE_URL}/en/recipes/${id}`,
+          },
+        },
       });
     }
   }
