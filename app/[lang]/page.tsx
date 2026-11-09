@@ -68,7 +68,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd(lang, c.howtoSteps, `/${lang}`)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(c.faq, `/${lang}`)) }} />
 
-      <div className="max-w-6xl mx-auto px-4">
+      <main className="max-w-6xl mx-auto px-4">
         <section className="hero-section">
           <h1 className="fadeUp">
             {c.heroH1.split("BreweryX").map((part, i) =>
@@ -96,12 +96,12 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             {lang === "ru" ? "Что такое BreweryX и как им пользоваться" : "What is BreweryX and how to use it"}
           </summary>
           <div className="collapse-body">
-            <h3 className="collapse-heading">{c.introTitle}</h3>
+            <h2 className="collapse-heading">{c.introTitle}</h2>
             {c.introParagraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
 
-            <h3 className="collapse-heading">{c.howtoTitle}</h3>
+            <h2 className="collapse-heading">{c.howtoTitle}</h2>
             <ol className="step-list">
               {c.howtoSteps.map((step, i) => (
                 <li key={i} className="step-item">
@@ -114,7 +114,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               ))}
             </ol>
 
-            <h3 className="collapse-heading">{c.featuresTitle}</h3>
+            <h2 className="collapse-heading">{c.featuresTitle}</h2>
             <div className="feature-grid">
               {c.features.map((f, i) => (
                 <div key={i} className="feature-card fadeUp" style={{ animationDelay: `${Math.min(0.05 + i * 0.04, 0.35)}s` }}>
@@ -124,7 +124,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               ))}
             </div>
 
-            <h3 className="collapse-heading">{c.examplesTitle}</h3>
+            <h2 className="collapse-heading">{c.examplesTitle}</h2>
             <p className="text-muted text-sm mb-3">{c.examplesText}</p>
             <div className="example-grid">
               {ALL_RECIPES.slice(0, 8).map((ex, i) => {
@@ -145,7 +145,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
               })}
             </div>
 
-            <h3 className="collapse-heading">{c.faqTitle}</h3>
+            <h2 className="collapse-heading">{c.faqTitle}</h2>
             <div className="flex flex-col gap-2">
               {c.faq.map((item, i) => (
                 <details key={i} className="faq-item fadeUp" style={{ animationDelay: `${Math.min(0.05 + i * 0.04, 0.3)}s` }}>
@@ -174,7 +174,7 @@ export default async function Page({ params }: { params: Promise<{ lang: string 
             <RecipeApp lang={lang} />
           </div>
         </section>
-      </div>
+      </main>
     </>
   );
 }

@@ -193,6 +193,8 @@ body {
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+  min-height: 44px;
+  min-width: 44px;
 }
 .btn:disabled {
   opacity: 0.35;
