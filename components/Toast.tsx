@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import type { ToastType } from "./types";
 
@@ -8,12 +8,14 @@ interface ToastProps {
   toast: { msg: string; type: ToastType } | null;
 }
 
-export default function Toast({ toast }: ToastProps) {
-  const [mounted, setMounted] = useState(false);
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export default function Toast({ toast }: ToastProps) {
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   if (!toast || !mounted) return null;
 

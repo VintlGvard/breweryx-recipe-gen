@@ -15,7 +15,6 @@ import {
   WOOD_TYPES,
   EFFECTS,
   ALL_RECIPES,
-  type RecipeForm,
 } from "@/lib/recipes";
 
 describe("generateYaml", () => {
@@ -104,5 +103,15 @@ describe("exports", () => {
 
   it("getRandomRecipes returns requested count", () => {
     expect(getRandomRecipes(3)).toHaveLength(3);
+  });
+
+  it("converts record to form and formats labels", () => {
+    const first = ALL_RECIPES[0];
+    const form = formFromRecord(first);
+    expect(form.recipe_id).toBe(first.recipe_id);
+    expect(getDisplayName(first, "ru")).toBeTruthy();
+    expect(getDisplayName(first, "en")).toBeTruthy();
+    expect(getItemLabel("WHEAT", "ru")).toBe("Пшеница");
+    expect(getItemLabel("WHEAT", "en")).toBe("Wheat");
   });
 });
