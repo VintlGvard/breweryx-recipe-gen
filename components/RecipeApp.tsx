@@ -135,7 +135,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
     const id = setTimeout(() => {
       try {
         localStorage.setItem("brewery_recipes", JSON.stringify(state));
-      } catch {}
+      } catch (err) {
+        // ponytail: quota or privacy mode blocks localStorage write; non-fatal
+        console.warn("Failed to persist recipes state to localStorage:", err);
+      }
     }, 400);
     return () => clearTimeout(id);
   }, [state]);
@@ -146,7 +149,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
       if (last) {
         try {
           localStorage.setItem("brewery_recipes", JSON.stringify(last));
-        } catch {}
+        } catch (err) {
+          // ponytail: storage write on unmount; non-fatal
+          console.warn("Failed to persist recipes state on unmount:", err);
+        }
       }
     },
     []
@@ -303,7 +309,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
         await navigator.clipboard.writeText(yamlText);
         showToast(t("copied"), "success");
         return;
-      } catch {}
+      } catch (err) {
+        // ponytail: clipboard API denied or unsupported; fall back to execCommand
+        console.warn("Async clipboard write failed, attempting fallback:", err);
+      }
     }
     try {
       const ta = document.createElement("textarea");
@@ -320,7 +329,10 @@ export default function RecipeApp({ lang }: { lang: Lang }) {
         showToast(t("copied"), "success");
         return;
       }
-    } catch {}
+    } catch (err) {
+      // ponytail: legacy execCommand failed; show error toast to user
+      console.error("Fallback clipboard copy failed:", err);
+    }
     showToast(t("copy_error"), "danger");
   }
 

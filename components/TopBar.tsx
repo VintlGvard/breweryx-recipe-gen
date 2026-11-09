@@ -26,7 +26,6 @@ const listeners = new Set<() => void>();
 function setTheme(next: Theme) {
   theme = next;
   document.documentElement.dataset.theme = next;
-  document.documentElement.lang = document.documentElement.lang || "ru";
   listeners.forEach((fn) => fn());
 }
 
@@ -57,7 +56,10 @@ export default function TopBar({ lang }: { lang: string }) {
     document.cookie = `${COOKIE}=${next}; path=/; max-age=31536000`;
     try {
       localStorage.setItem(COOKIE, next);
-    } catch {}
+    } catch (err) {
+      // ponytail: localStorage unavailable; cookie persists theme across reloads
+      console.warn("Failed to save theme to localStorage:", err);
+    }
     setTheme(next);
   }, []);
 

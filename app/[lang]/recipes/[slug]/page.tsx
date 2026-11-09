@@ -79,7 +79,9 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ l
   try {
     const result = generateYaml([form]);
     yamlText = result.yaml;
-  } catch {
+  } catch (err) {
+    // ponytail: fallback to empty yaml on malformed preset; log for debugging
+    console.error(`Failed to generate YAML for recipe slug "${slug}":`, err);
   }
 
   const displayName = getDisplayName(ex, lang, slug);
